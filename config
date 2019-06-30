@@ -1,3 +1,4 @@
 motor0=/sys/class/tacho-motor/motor0
 motor1=/sys/class/tacho-motor/motor1
 distanceSensor=/sys/class/lego-sensor/sensor0
+minDistance=45

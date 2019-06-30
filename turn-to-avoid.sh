@@ -1,10 +1,10 @@
 #!/bin/bash
 source config 
-./drive.sh 150 150
+./drive.sh -150 150
 distance=$(cat $distanceSensor/value0)
-while [ $distance -ge $minDistance ] 
+while [ $distance -le $minDistance ] 
 do 
-	echo "Clear ahead. ($distance)"
+	echo "Obstacle ahead. ($distance)"
 	sleep 0.1
 	distance=$(cat $distanceSensor/value0)
 done 
