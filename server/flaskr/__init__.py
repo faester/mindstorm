@@ -20,6 +20,9 @@ def create_app(test_config = None):
 	except OSError:
 		pass
 
+	from . import motor
+	app.register_blueprint(motor.bp)
+
 	@app.route('/hello')
 	def hello(): 
 		return 'We are up and running'
