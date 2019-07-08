@@ -15,5 +15,5 @@ $env:FLASK_APP ="server.py"
 ### bash 
 ```
 $ export FLASK_ENV=development
-$ flask run --server=0.0.0.0
+$ flask run --host=0.0.0.0
 ```
