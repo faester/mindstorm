@@ -7,6 +7,6 @@ echo -$speed >$motor1/speed_sp
 echo run-forever>$motor0/command
 echo run-forever>$motor1/command
 
-watch -n 0.3 cat $distanceSensor/value0
+watch -n 0.2 cat $distanceSensor/value0
 
 ./stop.sh

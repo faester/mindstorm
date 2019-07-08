@@ -1,6 +1,6 @@
 #!/bin/bash
 source config 
-./drive.sh 150 150
+./drive.sh 250 250
 distance=$(cat $distanceSensor/value0)
 while [ $distance -ge $minDistance ] 
 do 
