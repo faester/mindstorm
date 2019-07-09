@@ -17,3 +17,7 @@ $env:FLASK_APP ="server.py"
 $ export FLASK_ENV=development
 $ flask run --host=0.0.0.0
 ```
+
+# venv
+http://flask.pocoo.org/docs/1.0/installation/#virtual-environments
+
