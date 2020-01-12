@@ -21,3 +21,5 @@ $ flask run --host=0.0.0.0
 # venv
 http://flask.pocoo.org/docs/1.0/installation/#virtual-environments
 
+## Activate venv (windows)
+.\venv\Scripts\activate
