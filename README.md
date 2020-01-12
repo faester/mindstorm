@@ -9,7 +9,7 @@ Tell Flask where to start
 
 ### Powershell
 ```
-$env:FLASK_APP ="server.py"
+$env:FLASK_APP ="server/flaskr"
 ```
 
 ### bash 
@@ -17,6 +17,9 @@ $env:FLASK_APP ="server.py"
 $ export FLASK_ENV=development
 $ flask run --host=0.0.0.0
 ```
+
+### Running flask 
+```flask run```
 
 # venv
 http://flask.pocoo.org/docs/1.0/installation/#virtual-environments
