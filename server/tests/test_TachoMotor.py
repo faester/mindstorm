@@ -7,6 +7,12 @@ import os
 def motorPath(): 
 	return os.path.join('..', 'sys', 'class')
 
+def setup_function():
+	print("Prior to running test!!!")
+
+def teardown_function():
+	print("after")
+
 def test_ctor_when_invalid_motor():
 	with pytest.raises(FileNotFoundError) as exception:
 		subject = flaskr.mindstorm.TachoMotor.TachoMotor(motorPath(), 10)
@@ -23,3 +29,7 @@ def test_commands():
 	expected = ['run-forever', 'run-to-abs-pos', 'run-to-rel-pos', 'run-timed', 'run-direct', 'stop', 'reset']
 	assert all([a == b for a, b in zip(actual, expected)])
 	assert len(actual) == len(expected), "number of elements differ"
+
+def test_sendCommand():
+	subject = flaskr.mindstorm.TachoMotor.TachoMotor(motorPath(), 0)
+	subject.sendCommand("stop")
