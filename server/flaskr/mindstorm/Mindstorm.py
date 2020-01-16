@@ -1,6 +1,6 @@
 import os
 
-class MindstormDirectory:
+class Directory:
 	""" Defines methods for communicating with a mindstorm directory """
 
 	def __init__(self, base, *args):
