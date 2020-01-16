@@ -9,17 +9,17 @@ class Directory:
 	def __openFileInSubdir(self, filename, mode): 
 		return open(os.path.join(self.directory, filename), mode)
 
-	def readFromFile(self, filename):
+	def read_from_file(self, filename):
 		f = self.__openFileInSubdir(filename, "r")
 		content = f.read().replace('\n', '')
 		f.close()
 		return content
 
-	def writeToFile(self, filename, content):
+	def write_to_file(self, filename, content):
 		f = self.__openFileInSubdir(filename, "w")
 		f.write(content)
 		f.close()	
 
-	def getSubdirectories():
+	def get_subdirectories():
 		return [name for name in os.listdir(self.directory)
 			if os.path.isdir(os.path.join(self.directory, name))]

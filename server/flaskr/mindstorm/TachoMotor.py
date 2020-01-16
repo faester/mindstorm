@@ -8,13 +8,13 @@ class Motor:
 		self.commandsArray = self.commands()
 
 	def commands(self): 
-		return self.mindstormDirectory.readFromFile("commands").split(' ')
+		return self.mindstormDirectory.read_from_file("commands").split(' ')
 
-	def sendCommand(self, command):
-		self.mindstormDirectory.writeToFile("command", command)
+	def send_command(self, command):
+		self.mindstormDirectory.write_to_file("command", command)
 
-	def setSpeed(self, speed): 
-		self.mindstormDirectory.writeToFile("speed_sp", f'{speed}\n')
+	def set_speed(self, speed): 
+		self.mindstormDirectory.write_to_file("speed_sp", f'{speed}\n')
 
 class MotorList:
 	""" Lists tacho motors """
@@ -22,5 +22,5 @@ class MotorList:
 	def __init__(self, basedir):
 		self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor")
 
-	def getMotorList():
+	def get_motor_list():
 		return self.mindstormDirectory.getSubdirectories()
