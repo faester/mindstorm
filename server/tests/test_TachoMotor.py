@@ -7,16 +7,16 @@ import os
 def sys_class_path(): 
 	return os.path.join('..', 'sys', 'class')
 
-def __write_file(subpath0, subpath1, filename, content):
-	f = open(os.path.join(sys_class_path(), subpath0, subpath1, filename), "w+")
+def __write_file(content, *path_components):
+	f = open(os.path.join(sys_class_path(), *path_components), "w+")
 	currentContent = f.read()
 	if currentContent != content:
 		f.write(content)
 	f.close()
 
 def __revert_sysclass_files():
-	__write_file("tacho-motor", "motor0", "command", "# this file is write-only in the real FS\n")
-	__write_file("tacho-motor", "motor0", "commands", "run-forever run-to-abs-pos run-to-rel-pos run-timed run-direct stop reset\n")
+	__write_file("# this file is write-only in the real FS\n", "tacho-motor", "motor0", "command")
+	__write_file("run-forever run-to-abs-pos run-to-rel-pos run-timed run-direct stop reset\n", "tacho-motor", "motor0", "commands")
 
 def setup_function():
 	__revert_sysclass_files()
