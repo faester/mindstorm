@@ -29,3 +29,6 @@ class TachoMotor:
 
 	def sendCommand(self, command):
 		self.__writeToSubdir("command", command)
+
+	def setSpeed(self, speed): 
+		commandFile = self.__writeToSubdir("speed_sp", f'{speed}\n')

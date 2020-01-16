@@ -44,3 +44,8 @@ def test_commands():
 def test_sendCommand():
 	subject = flaskr.mindstorm.TachoMotor.TachoMotor(sysClassPath(), 0)
 	subject.sendCommand("stop")
+
+def test_setSpeed():
+	subject = flaskr.mindstorm.TachoMotor.TachoMotor(sysClassPath(), 0)
+	subject.setSpeed("100")
+	
