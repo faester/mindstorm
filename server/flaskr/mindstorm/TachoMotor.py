@@ -1,12 +1,10 @@
-import os
-import flaskr.mindstorm.MindstormDirectory
+import flaskr.mindstorm.MindstormDirectory as MindstormDirectory
 
 class TachoMotor:
 	""" Abstraction of a motor in Mindstorms on EV3 """
 
 	def __init__(self, basedir, motorNumber): 
-		self.directory = os.path.join(basedir, "tacho-motor", f'motor{motorNumber}')
-		self.mindstormDirectory = flaskr.mindstorm.MindstormDirectory.MindstormDirectory(self.directory)
+		self.mindstormDirectory = MindstormDirectory.MindstormDirectory(basedir, "tacho-motor", f'motor{motorNumber}')
 		self.commandsArray = self.commands()
 
 	def commands(self): 
