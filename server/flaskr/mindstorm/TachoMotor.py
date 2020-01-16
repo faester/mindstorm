@@ -15,3 +15,12 @@ class Motor:
 
 	def setSpeed(self, speed): 
 		self.mindstormDirectory.writeToFile("speed_sp", f'{speed}\n')
+
+class MotorList:
+	""" Lists tacho motors """
+
+	def __init__(self, basedir):
+		self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor")
+
+	def getMotorList():
+		return self.mindstormDirectory.getSubdirectories()
