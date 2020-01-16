@@ -12,15 +12,20 @@ class TachoMotor:
 	def __openFileInSubdir(self, filename, mode): 
 		return open(os.path.join(self.directory, filename), mode)
 
+	def __readFromSubdir(self, filename):
+		f = self.__openFileInSubdir(filename, "r")
+		content = f.read().replace('\n', '')
+		f.close()
+		return content
+
+	def __writeToSubdir(self, filename, content):
+		f = self.__openFileInSubdir(filename, "w")
+		f.write(content)
+		f.close()
+		
+
 	def commands(self): 
-		commands = self.__openFileInSubdir("commands", "r")
-		contents = commands.read().replace('\n', '')
-		commands.close()
-		print(contents.split(' '))
-		return contents.split(' ')
+		return self.__readFromSubdir("commands").split(' ')
 
 	def sendCommand(self, command):
-		commandFile = self.__openFileInSubdir("command", "w")
-		commandFile.write(command)
-		commandFile.close()
-			
+		self.__writeToSubdir("command", command)
