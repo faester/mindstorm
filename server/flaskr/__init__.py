@@ -1,4 +1,6 @@
 import os
+import logging
+import logging.config
 
 from flask import Flask
 from flask import render_template
@@ -7,6 +9,7 @@ def create_app(test_config = None):
 	# Create and configure the app
 	app = Flask(__name__, instance_relative_config = True)
 	app.config.from_mapping(FOO = 'bar', GRINGOS = 'Loco')
+	configure_logging()
 	
 	if test_config is None: 
 		# Load config from py_file 
@@ -17,8 +20,10 @@ def create_app(test_config = None):
 
 	try: 
 		os.makedirs(app.instance_path)
-	except OSError:
+	except OSError as err:
+		logging.info(f'Instance path "{app.instance_path}" already exists.')
 		pass
+
 
 	from . import motor
 	app.register_blueprint(motor.bp)
@@ -33,3 +38,11 @@ def create_app(test_config = None):
 		return render_template('test.html', title = "Testing templates", greeting = "Hello Bandut")
 
 	return app
+
+
+def configure_logging():
+	logging.config.fileConfig('logging.config')
+	logging.basicConfig(filename='../log/mindstorm.log',level=logging.DEBUG, format='%(asctime)s [%(levelname)s] %(message)s')
+	logging.debug('debug log example')
+	logging.info('info log example')
+	logging.warning('warning log example')
