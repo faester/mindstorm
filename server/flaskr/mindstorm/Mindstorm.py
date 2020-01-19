@@ -25,4 +25,4 @@ class Directory:
 			if os.path.isdir(os.path.join(self.directory, name))]
 
 	def subdir(self, subdir):
-		return os.path.join(base, subdir)
+		return os.path.join(self.directory, subdir)

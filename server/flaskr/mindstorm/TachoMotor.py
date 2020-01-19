@@ -26,7 +26,7 @@ class MotorList:
 		self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor")
 
 	def get_motor_list(self):
-		return self.mindstormDirectory.getSubdirectories()
+		return self.mindstormDirectory.get_subdirectories()
 
 	def get_directory_for_motor(self, motor_name):
 		return self.mindstormDirectory.subdir(motor_name)

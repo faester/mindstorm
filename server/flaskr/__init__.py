@@ -27,7 +27,7 @@ def create_app(test_config = None):
 		pass
 
 
-	builder = pathbuilder.PathBuilder(app)
+	builder = pathbuilder.PathBuilder(app, '../sys/class')
 
 
 	@app.route('/hello')
