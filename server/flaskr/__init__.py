@@ -4,6 +4,8 @@ import logging.config
 
 from flask import Flask
 from flask import render_template
+from . import motor
+from . import pathbuilder
 
 def create_app(test_config = None): 
 	# Create and configure the app
@@ -25,8 +27,8 @@ def create_app(test_config = None):
 		pass
 
 
-	from . import motor
-	app.register_blueprint(motor.motor, url_prefix= '/motors')
+	builder = pathbuilder.PathBuilder(app)
+
 
 	@app.route('/hello')
 	def hello(): 
