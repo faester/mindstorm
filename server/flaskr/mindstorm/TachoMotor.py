@@ -3,9 +3,12 @@ import flaskr.mindstorm.Mindstorm as Mindstorm
 class Motor:
 	""" Abstraction of a motor in Mindstorms on EV3 """
 
-	def __init__(self, basedir, motorNumber): 
-		self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", f'motor{motorNumber}')
-		self.commandsArray = self.commands()
+	def __init__(self, basedir, motorNumber = None): 
+		if motorNumber is None: 	
+			self.mindstormDirectory = Mindstorm.Directory(basedir)
+		else:
+			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", f'motor{motorNumber}')
+		self.commands()
 
 	def commands(self): 
 		return self.mindstormDirectory.read_from_file("commands").split(' ')
@@ -22,5 +25,8 @@ class MotorList:
 	def __init__(self, basedir):
 		self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor")
 
-	def get_motor_list():
+	def get_motor_list(self):
 		return self.mindstormDirectory.getSubdirectories()
+
+	def get_directory_for_motor(self, motor_name):
+		return self.mindstormDirectory.subdir(motor_name)

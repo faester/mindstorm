@@ -20,6 +20,9 @@ class Directory:
 		f.write(content)
 		f.close()	
 
-	def get_subdirectories():
+	def get_subdirectories(self):
 		return [name for name in os.listdir(self.directory)
 			if os.path.isdir(os.path.join(self.directory, name))]
+
+	def subdir(self, subdir):
+		return os.path.join(base, subdir)
