@@ -26,7 +26,7 @@ def create_app(test_config = None):
 
 
 	from . import motor
-	app.register_blueprint(motor.bp)
+	app.register_blueprint(motor.motor, url_prefix= '/motors')
 
 	@app.route('/hello')
 	def hello(): 
