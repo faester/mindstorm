@@ -38,15 +38,15 @@ def test_commands_with_full_path_ctor():
 	subject = TachoMotor.Motor(os.path.join(sys_class_path(), "tacho-motor", "motor0"))
 	actual = subject.commands()
 	expected = ['run-forever', 'run-to-abs-pos', 'run-to-rel-pos', 'run-timed', 'run-direct', 'stop', 'reset']
-	assert all([a == b for a, b in zip(actual, expected)])
-	assert len(actual) == len(expected), "number of elements differ"
+	assert all([a == b for a, b in zip(actual['commands'], expected)])
+	assert len(actual['commands']) == len(expected), "number of elements differ"
 
 def test_commands():
 	subject = TachoMotor.Motor(sys_class_path(), 0)
 	actual = subject.commands()
 	expected = ['run-forever', 'run-to-abs-pos', 'run-to-rel-pos', 'run-timed', 'run-direct', 'stop', 'reset']
-	assert all([a == b for a, b in zip(actual, expected)])
-	assert len(actual) == len(expected), "number of elements differ"
+	assert all([a == b for a, b in zip(actual['commands'], expected)])
+	assert len(actual['commands']) == len(expected), "number of elements differ"
 
 def test_send_command():
 	subject = TachoMotor.Motor(sys_class_path(), 0)
