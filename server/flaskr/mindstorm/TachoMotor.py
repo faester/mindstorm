@@ -70,7 +70,7 @@ class Motor:
 	
 	def post(self, **kwargs):
 		for file_name in [f for f in self.writable_keys if f in kwargs]:
-			self.mindstormDirectory.write_to_file(self.mappers[file_name](kwargs[file_name]))
+			self.mindstormDirectory.write_to_file(file_name, self.mappers[file_name](kwargs[file_name]))
 		
 
 class MotorList:

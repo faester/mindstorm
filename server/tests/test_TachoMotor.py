@@ -103,3 +103,14 @@ def test_post_readonly_property():
 	actual = subject.get()
 	
 	assert actual['commands'] == expected['commands']
+
+def test_post_command(): 
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {'command': 'run-forever'}
+	
+	subject.post(command = 'run-forever')
+
+	actual = subject.get()
+	
+	assert actual['command'] == expected['command']
+
