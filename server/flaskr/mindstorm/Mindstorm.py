@@ -11,7 +11,7 @@ class Directory:
 
 	def read_from_file(self, filename):
 		f = self.__openFileInSubdir(filename, "r")
-		content = f.read().replace('\n', '')
+		content = f.read()
 		f.close()
 		return content
 
