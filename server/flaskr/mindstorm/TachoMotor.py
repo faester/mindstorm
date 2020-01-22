@@ -2,13 +2,38 @@ import flaskr.mindstorm.Mindstorm as Mindstorm
 
 class Motor:
 	""" Abstraction of a motor in Mindstorms on EV3 """
-
 	def __init__(self, basedir, motorNumber = None): 
 		if motorNumber is None: 	
 			self.mindstormDirectory = Mindstorm.Directory(basedir)
 		else:
 			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", f'motor{motorNumber}')
 		self.commands()
+		self.__construct_metadata__()
+	
+	def __construct_metadata__(self):
+		def split(x): x.replace('\n', '').split(' ')
+		self.readable_keys = ["address","command","commands","count_per_rot","driver_name","duty_cycle","duty_cycle_sp","max_speed","polarity","position","position_sp","ramp_down_sp","ramp_up_sp","speed","speed_sp","state","stop_action","stop_actions","uevent"]
+		self.writable_keys = ["command","duty_cycle_sp","position_sp","ramp_down_sp","ramp_up_sp","speed_sp","stop_action"]
+		self.mappers = {}
+		self.mappers["address"] = str
+		self.mappers['command'] = str
+		self.mappers['commands'] = split # Will fail if 'commands' are writeable
+		self.mappers['count_per_rot'] = int
+		self.mappers['driver_name'] = str 
+		self.mappers['duty_cycle'] = int
+		self.mappers['duty_cycle_sp'] = int
+		self.mappers['max_speed'] = int
+		self.mappers['polarity'] = str 
+		self.mappers['position'] = int 
+		self.mappers['position_sp'] = int 
+		self.mappers['ramp_down_sp'] = int 
+		self.mappers['ramp_up_sp'] = int 
+		self.mappers['speed'] = int 
+		self.mappers['speed_sp'] = int 
+		self.mappers['state'] = str 
+		self.mappers['stop_action'] = str 
+		self.mappers['stop_actions'] = str 
+		self.mappers['uevent'] = str 
 
 	def commands(self): 
 		return {"commands": self.mindstormDirectory.read_from_file("commands").split(' ')}
@@ -21,6 +46,17 @@ class Motor:
 
 	def set_speed(self, speed): 
 		self.mindstormDirectory.write_to_file("speed_sp", f'{speed}\n')
+	
+	def get(self):
+		result = {}
+		for file_name in self.readable_keys:
+			result[file_name] = self.mappers[file_name](self.mindstormDirectory.read_from_file(file_name))
+		return result
+	
+	def post(self, **kwargs):
+		for file_name in [f for f in self.writable_keys if f in kwargs]:
+			self.mindstormDirectory.write_to_file(self.mappers[file_name](kwargs[file_name]))
+		
 
 class MotorList:
 	""" Lists tacho motors """

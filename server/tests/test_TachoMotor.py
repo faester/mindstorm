@@ -56,3 +56,29 @@ def test_set_speed():
 	subject = TachoMotor.Motor(sys_class_path(), 0)
 	subject.set_speed("100")
 	
+def test_get():
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {}
+	expected['address'] = 'ev3-ports:outA'
+	expected['command'] = '# this file is write-only in the real FS'
+	expected['commands'] = 'run-forever run-to-abs-pos run-to-rel-pos run-timed run-direct stop reset'
+	expected['count_per_rot'] = 360
+	expected['driver_name'] = 'lego-ev3-l-motor'
+	expected['duty_cycle'] = 0
+	expected['duty_cycle_sp'] = 0
+	expected['max_speed'] = 1050
+	expected['polarity'] = 'normal'
+	expected['position'] = 23638
+	expected['position_sp'] = 0
+	expected['ramp_down_sp'] = 0
+	expected['ramp_up_sp'] = 0
+	expected['speed'] = 0
+	expected['speed_sp'] = 100
+	expected['state'] = ''
+	expected['stop_action'] = 'coast'
+	expected['stop_actions'] = 'coast brake hold'
+	expected['uevent'] = '{LEGO_DRIVER_NAME=lego-ev3-l-motor, LEGO_ADDRESS=ev3-ports:outA}'
+	
+	actual = subject.get()
+
+	assert all([a == b for a, b in zip(actual, expected)])
