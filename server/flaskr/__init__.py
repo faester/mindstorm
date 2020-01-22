@@ -4,7 +4,6 @@ import logging.config
 
 from flask import Flask
 from flask import render_template
-from . import motor
 from . import pathbuilder
 
 def create_app(test_config = None): 
