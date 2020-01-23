@@ -74,7 +74,7 @@ class SensorMotorIO:
 		return result
 	
 	def post(self, **kwargs):
-		modified = ['placeholder']
+		modified = []
 		for file_name in [f for f in self.writable_keys if f in kwargs]:
 			modified.append(file_name)
 			print (file_name, kwargs[file_name])
