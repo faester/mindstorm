@@ -58,7 +58,7 @@ class PathBuilder:
 		@self.app.route('/motors')
 		def motors():
 			motorList = TachoMotor.MotorList(self.basedir) 
-			return self.encoder.encode(request, 'motors.html', {"motors": motorList.get_motor_list()})
+			return self.encoder.encode(request, 'motors.html', motorList.get_motor_list())
 
 		@self.app.route('/motors/<motor_name>')
 		def get_motor(motor_name):
