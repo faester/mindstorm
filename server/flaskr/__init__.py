@@ -2,10 +2,9 @@ import os
 import logging
 import logging.config
 
-from flask import Flask, request
+from flask import Flask
 from flask import render_template
 from . import pathbuilder
-import flaskr.mindstorm.TachoMotor as TachoMotor
 import json 
 
 def create_app(test_config = None): 
@@ -26,7 +25,7 @@ def create_app(test_config = None):
 		logging.info(f'Instance path "{app.instance_path}" already exists.')
 		pass
 
-	basedir = '../sys/class' 
+	path_builder = pathbuilder.PathBuilder(app, '../sys/class')
 
 	@app.route('/hello')
 	def hello(): 
@@ -36,22 +35,6 @@ def create_app(test_config = None):
 	@app.route('/test-template')
 	def testTemplate(): 
 		return render_template('test.html', title = "Testing templates", greeting = "Hello Bandut")
-
-	@app.route('/motors')
-	def motors():
-		motorList = TachoMotor.MotorList(basedir) 
-		return motorList.get_motor_list()
-
-	@app.route('/motors/<motor_name>')
-	def get_motor(motor_name):
-		motor = TachoMotor.Motor(basedir, motor_name = motor_name)
-		return motor.get()
-
-	@app.route('/motors/<motor_name>', methods = ['POST'])
-	def post_motor(motor_name):
-		motor = TachoMotor.Motor(basedir, motor_name = motor_name)
-		body = json.loads(request.data.decode('utf-8'))
-		return motor.post(**body)
 
 	return app
 

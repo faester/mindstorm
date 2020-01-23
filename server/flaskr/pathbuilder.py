@@ -23,24 +23,21 @@ class PathBuilder:
 		self.app = app
 		self.logger.debug('initialized') 
 		self.basedir = basedir
-		self.__import_external_modules__()
+		self.__setup_routes__()
 
-	@with_logging
-	def __import_external_modules__(self): 
-		motorList = TachoMotor.MotorList(self.basedir) 
-		motors = [(motor, motorList.get_directory_for_motor(motor)) for motor in motorList.get_motor_list()['motors']]
-		for motor in motors:
-			self.logger.info(f'found motor {motor[0]} with dir {motor[1]}')
-			tacho = TachoMotor.Motor(motor[1]) 
-			logger = logging.getLogger('tacho-motor[0]')
-			def post(): 
-				data = request.data.decode('utf-8')
-				body = json.loads(data)
-				logger.info("deserialized completed")
-				return tacho.post(**body)
-			def get():
-				data = tacho.get()
-				return data
-			self.app.add_url_rule(rule = f'/motors/{motor[0]}', endpoint = f'motors/{motor[0]}-GET', view_func = get, methods = ['GET'])
-			self.app.add_url_rule(rule = f'/motors/{motor[0]}', endpoint = f'motors/{motor[0]}-POST', view_func = post, methods = ['POST'])
-		self.app.add_url_rule(rule = '/motors', endpoint = 'motors', view_func = motorList.get_motor_list)
+	def __setup_routes__(self): 
+		@self.app.route('/motors')
+		def motors():
+			motorList = TachoMotor.MotorList(self.basedir) 
+			return motorList.get_motor_list()
+
+		@self.app.route('/motors/<motor_name>')
+		def get_motor(motor_name):
+			motor = TachoMotor.Motor(self.basedir, motor_name = motor_name)
+			return motor.get()
+
+		@self.app.route('/motors/<motor_name>', methods = ['POST'])
+		def post_motor(motor_name):
+			motor = TachoMotor.Motor(self.basedir, motor_name = motor_name)
+			body = json.loads(request.data.decode('utf-8'))
+			return motor.post(**body)
