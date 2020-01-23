@@ -101,16 +101,82 @@ def test_post_readonly_property():
 	subject.post(commands = 'this should not be written')
 
 	actual = subject.get()
-	
 	assert actual['commands'] == expected['commands']
 
 def test_post_command(): 
+	key = 'command'
+	value = 'run-forever'
 	subject = TachoMotor.Motor(sys_class_path(), 0)
-	expected = {'command': 'run-forever'}
+	expected = {key: value}
 	
-	subject.post(command = 'run-forever')
+	subject.post(**expected)
 
 	actual = subject.get()
+	assert actual[key] == expected[key]
+
+def test_post_duty_cycle_sp(): 
+	key = 'duty_cycle_sp'
+	value = 10 
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {key: value}
 	
-	assert actual['command'] == expected['command']
+	subject.post(**expected)
+
+	actual = subject.get()
+	assert actual[key] == expected[key]
+
+def test_post_position_sp(): 
+	key = 'position_sp'
+	value = 77 
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {key: value}
+	
+	subject.post(**expected)
+
+	actual = subject.get()
+	assert actual[key] == expected[key]
+
+def test_post_ramp_down_sp(): 
+	key = 'ramp_down_sp'
+	value = 78 
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {key: value}
+	
+	subject.post(**expected)
+
+	actual = subject.get()
+	assert actual[key] == expected[key]
+
+def test_post_ramp_up_sp(): 
+	key = 'ramp_up_sp'
+	value = 38 
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {key: value}
+	
+	subject.post(**expected)
+
+	actual = subject.get()
+	assert actual[key] == expected[key]
+
+def test_post_speed_sp(): 
+	key = 'speed_sp'
+	value = 38 
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {key: value}
+	
+	subject.post(**expected)
+
+	actual = subject.get()
+	assert actual[key] == expected[key]
+
+def test_post_stop_action(): 
+	key = 'stop_action'
+	value = 'real-wild-child' 
+	subject = TachoMotor.Motor(sys_class_path(), 0)
+	expected = {key: value}
+	
+	subject.post(**expected)
+
+	actual = subject.get()
+	assert actual[key] == expected[key]
 
