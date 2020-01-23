@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Motors </title>
+</head>
+<body>
+<h1>Link to motors below</h1>	
+{% for motor in motors %}
+	<p>
+		<a href='./{{ motor }}'>{{ motor }}</a>
+	</p>
+{% endfor %}
+</body>
+</html>
