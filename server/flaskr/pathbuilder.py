@@ -26,6 +26,16 @@ class PathBuilder:
 		self.__setup_routes__()
 
 	def __setup_routes__(self): 
+		def decode(req):
+			log = logging.getLogger('decode')
+			log.info('is decoding')
+			contentType = req.headers.get('Content-Type')
+			log.info(contentType)
+			if contentType == 'application/x-www-form-urlencoded': 
+				log.info('form encoding')
+				return req.form
+			return req.json
+
 		@self.app.route('/motors')
 		def motors():
 			motorList = TachoMotor.MotorList(self.basedir) 
@@ -39,5 +49,5 @@ class PathBuilder:
 		@self.app.route('/motors/<motor_name>', methods = ['POST'])
 		def post_motor(motor_name):
 			motor = TachoMotor.Motor(self.basedir, motor_name = motor_name)
-			body = json.loads(request.data.decode('utf-8'))
+			body = decode(request)
 			return motor.post(**body)
