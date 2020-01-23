@@ -1,35 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title> {{ driver_name }} </title>
-</head>
-<body>
-<h1> {{ address }} </h1>	
-<table>
-	<thead>
-		<tr><td>name</td><td>value</td></tr>
-	</thead>
-	<tbody>
-		<tr><td>command</td><td>{{ command }}</td></tr>
-		<tr><td>commands</td><td></td></tr>
-		<tr><td>count_per_rot</td><td>{{ count_per_rot }}</td></tr>
-		<tr><td>driver_name</td><td>{{ driver_name }}</td></tr>
-		<tr><td>duty_cycle</td><td>{{ duty_cycle }}</td></tr>
-		<tr><td>duty_cycle_sp</td><td>{{ duty_cycle_sp }}</td></tr>
-		<tr><td>max_speed</td><td>{{ max_speed }}</td></tr>
-		<tr><td>polarity</td><td>{{ polarity }}</td></tr>
-		<tr><td>position</td><td>{{ position }}</td></tr>
-		<tr><td>position_sp</td><td>{{ position_sp }}</td></tr>
-		<tr><td>ramp_down_sp</td><td>{{ ramp_down_sp }}</td></tr>
-		<tr><td>ramp_up_sp</td><td>{{ ramp_up_sp }}</td></tr>
-		<tr><td>speed</td><td>{{ speed }}</td></tr>
-		<tr><td>speed_sp</td><td>{{ speed_sp }}</td></tr>
-		<tr><td>state</td><td>{{ state }}</td></tr>
-		<tr><td>stop_action</td><td>{{ stop_action }}</td></tr>
-		<tr><td>stop_actions</td><td>{{ stop_actions }}</td></tr>
-		<tr><td>uevent</td><td></td></tr>
-	</tbody>
-</table>
+{% extends 'base.html' %}
+{% block page_title %}
+{{ driver_name  }}
+{% endblock %}
+{% block heading %}
+{{ address  }}
+{% endblock %}
+{% block main %}
+<form method='POST'>
+<p>
+<h3>command</h3>
+<select name='command'>
+	{% for command_item in commands %}
+		<option value='{{ command_item }}' {% if command == command_item %}selected {% endif %} />
+		{{ command_item }}
+		</option>
+	{% endfor %}
+</select>
+</p>
+<p>	count_per_rot<input name='count_per_rot' value='{{ count_per_rot }}' /></p>
+<p>	driver_name<input name='driver_name' value='{{ driver_name }}' /></p>
+<p>	duty_cycle<input name='duty_cycle' value='{{ duty_cycle }}' /></p>
+<p>	duty_cycle_sp<input name='duty_cycle_sp' value='{{ duty_cycle_sp }}' /></p>
+<p>	max_speed<input name='max_speed' value='{{ max_speed }}' /></p>
+<p>	polarity<input name='polarity' value='{{ polarity }}' /></p>
+<p>	position<input name='position' value='{{ position }}' /></p>
+<p>	position_sp<input name='position_sp' value='{{ position_sp }}' /></p>
+<p>	ramp_down_sp<input name='ramp_down_sp' value='{{ ramp_down_sp }}' /></p>
+<p>	ramp_up_sp<input name='ramp_up_sp' value='{{ ramp_up_sp }}' /></p>
+<p>	speed<input name='speed' value='{{ speed }}' /></p>
+<p>	speed_sp<input name='speed_sp' value='{{ speed_sp }}' /></p>
+<p>	state<input name='state' value='{{ state }}' /></p>
+<p>
+<select name='stop_action'>
+	{% for stop_item in stop_actions %}
+		<option value='{{ stop_item }}' {% if stop_action == stop_item %}selected {% endif %} />
+		{{ stop_item }}
+		</option>
+	{% endfor %}
+</select>
+</p>
+<p>		uevent<input name='uevent' value='' /></p>
+
+<input type='submit' value='change' />
+</form>
 <a href="/motors">back</a>
-</body>
-</html>
+{% endblock %}
