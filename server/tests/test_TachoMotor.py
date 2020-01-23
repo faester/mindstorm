@@ -17,6 +17,7 @@ def __write_file(content, *path_components):
 def __revert_sysclass_files():
 	def write_motor0(file_name, content): 
 		__write_file(content + '\n', "tacho-motor", "motor0", file_name)
+		__write_file(content + '\n', "tacho-motor", "motor2", file_name)
 
 	write_motor0('command', '# this file is write-only in the real FS')
 	write_motor0('commands', 'run-forever run-to-abs-pos run-to-rel-pos run-timed run-direct stop reset')
@@ -179,4 +180,18 @@ def test_post_stop_action():
 
 	actual = subject.get()
 	assert actual[key] == expected[key]
+
+def test_post_speed_sp(): 
+	key = 'speed_sp'
+	value = [89,127]
+	motors = [TachoMotor.Motor(sys_class_path(), 0), TachoMotor.Motor(sys_class_path(), 2)]
+	expected = [{key: value[0]}, {key: value[1]}]
+	
+	motors[0].post(**expected[0])
+	motors[1].post(**expected[1])
+
+	actual = motors[0].get(), motors[1].get()
+	assert actual[0][key] == expected[0][key]
+	assert actual[1][key] == expected[1][key]
+
 
