@@ -3,11 +3,13 @@ from flask import Flask, request
 
 class Motor:
 	""" Abstraction of a motor in Mindstorms on EV3 """
-	def __init__(self, basedir, motorNumber = None): 
-		if motorNumber is None: 	
+	def __init__(self, basedir, motor_number = None, motor_name = None): 
+		if motor_number is None and motor_name is None: 	
 			self.mindstormDirectory = Mindstorm.Directory(basedir)
+		elif motor_name is None:
+			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", f'motor{motor_number}')
 		else:
-			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", f'motor{motorNumber}')
+			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", motor_name)
 		self.motorIO = Mindstorm.SensorMotorIO(self.mindstormDirectory)
 		self.__construct_metadata__()
 		self.commands()
