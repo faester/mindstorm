@@ -1,6 +1,7 @@
 import logging
 import flaskr.mindstorm.TachoMotor as TachoMotor
-from flask import jsonify
+from flask import jsonify, request
+import json
 
 def with_logging(func):
 	""" A little wrapper experiment. Not directly useful :) """
@@ -31,5 +32,13 @@ class PathBuilder:
 		for motor in motors:
 			self.logger.info(f'found motor {motor[0]} with dir {motor[1]}')
 			tacho = TachoMotor.Motor(motor[1]) 
-			self.app.add_url_rule(rule = f'/motors/{motor[0]}/commands', endpoint = f'motors/{motor[0]}/commands', view_func = tacho.commands)
+			logger = logging.getLogger('tacho-motor[0]')
+			def post(): 
+				data = request.data.decode('utf-8')
+				logger.debug("received", data)
+				body = json.loads(data)
+				logger.info("deserialized completed")
+				return tacho.post(**body)
+			self.app.add_url_rule(rule = f'/motors/{motor[0]}', endpoint = f'motors/{motor[0]}-GET', view_func = tacho.get)
+			self.app.add_url_rule(rule = f'/motors/{motor[0]}', endpoint = f'motors/{motor[0]}-POST', view_func = post, methods = ['POST'])
 		self.app.add_url_rule(rule = '/motors', endpoint = 'motors', view_func = motorList.get_motor_list)

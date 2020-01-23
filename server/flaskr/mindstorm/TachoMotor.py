@@ -1,4 +1,5 @@
 import flaskr.mindstorm.Mindstorm as Mindstorm 
+from flask import Flask, request
 
 class Motor:
 	""" Abstraction of a motor in Mindstorms on EV3 """
@@ -55,7 +56,8 @@ class Motor:
 		return self.motorIO.get()
 	
 	def post(self, **kwargs):
-		self.motorIO.post(**kwargs)
+		modified = self.motorIO.post(**kwargs)
+		return {"Ok": True, "modified": modified}
 
 class MotorList:
 	""" Lists tacho motors """

@@ -74,6 +74,10 @@ class SensorMotorIO:
 		return result
 	
 	def post(self, **kwargs):
+		modified = ['placeholder']
 		for file_name in [f for f in self.writable_keys if f in kwargs]:
+			modified.append(file_name)
+			print (file_name, kwargs[file_name])
 			self.mindstormDirectory.write_to_file(file_name, str(kwargs[file_name]))
+		return modified
 
