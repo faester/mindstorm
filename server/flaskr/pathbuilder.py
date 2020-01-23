@@ -35,10 +35,12 @@ class PathBuilder:
 			logger = logging.getLogger('tacho-motor[0]')
 			def post(): 
 				data = request.data.decode('utf-8')
-				logger.debug("received", data)
 				body = json.loads(data)
 				logger.info("deserialized completed")
 				return tacho.post(**body)
-			self.app.add_url_rule(rule = f'/motors/{motor[0]}', endpoint = f'motors/{motor[0]}-GET', view_func = tacho.get)
+			def get():
+				data = tacho.get()
+				return data
+			self.app.add_url_rule(rule = f'/motors/{motor[0]}', endpoint = f'motors/{motor[0]}-GET', view_func = get, methods = ['GET'])
 			self.app.add_url_rule(rule = f'/motors/{motor[0]}', endpoint = f'motors/{motor[0]}-POST', view_func = post, methods = ['POST'])
 		self.app.add_url_rule(rule = '/motors', endpoint = 'motors', view_func = motorList.get_motor_list)

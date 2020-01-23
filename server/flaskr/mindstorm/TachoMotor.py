@@ -35,12 +35,7 @@ class Motor:
 
 	def commands(self): 
 		d = self.get()
-		print(d)
-		print(type(d))
-		print(d['commands'])
 		result = d['commands']
-		print (result)
-		print(type(result))
 		return result
 
 	def send_command(self, command):
