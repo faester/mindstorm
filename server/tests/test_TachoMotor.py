@@ -86,7 +86,7 @@ def test_get():
 	expected['speed_sp'] = 100
 	expected['state'] = ''
 	expected['stop_action'] = 'coast'
-	expected['stop_actions'] = 'coast brake hold'
+	expected['stop_actions'] = ['coast', 'brake', 'hold']
 	expected['uevent'] = {'LEGO_DRIVER_NAME': 'lego-ev3-l-motor', 'LEGO_ADDRESS': 'ev3-ports:outA'}
 	
 	actual = subject.get()

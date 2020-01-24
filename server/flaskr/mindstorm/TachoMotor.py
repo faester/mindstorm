@@ -32,7 +32,7 @@ class Motor:
 		self.motorIO.add_int_file('speed_sp', 'rw')
 		self.motorIO.add_string_file('state', 'r')
 		self.motorIO.add_string_file('stop_action', 'rw')
-		self.motorIO.add_string_file('stop_actions', 'r')
+		self.motorIO.add_array_file('stop_actions', 'r')
 		self.motorIO.add_dictionary_file('uevent', 'r')
 
 	def commands(self): 
