@@ -68,7 +68,7 @@
     </div>
     <div class="col-md-8 order-md-1">
       <h4 class='mb-3'>Commands</h4>
-      <form class='needs-validation' novalidate=''>
+      <form class='needs-validation' novalidate='' method='post'>
         <div class='row'>
           <div class="col-md-6 mb-3">
             <label for='speed'>Speed</label>
@@ -82,11 +82,11 @@
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for='ramp_up'>Ramp up</label>
-            <input type='number_sp' class='form-control' id='ramp_up_sp' name='ramp_up_sp' placeholder='' value='{{ramp_up}}' required=''>
+            <input type='number_sp' class='form-control' id='ramp_up_sp' name='ramp_up_sp' placeholder='' value='{{ramp_up_sp}}' required=''>
           </div>
           <div class="col-md-6 mb-3">
             <label for='ramp_down'>Ramp down</label>
-            <input type='number_sp' class='form-control' id='ramp_down_sp' name='ramp_down_sp' placeholder='' value='{{ramp_down}}' required=''>
+            <input type='number_sp' class='form-control' id='ramp_down_sp' name='ramp_down_sp' placeholder='' value='{{ramp_down_sp}}' required=''>
           </div>
         </div>
 
@@ -124,17 +124,6 @@
 
 
 <!--  -->
-
-
-<form method='POST'>
-<p>
-</p>
-<p>	duty_cycle_sp<input name='duty_cycle_sp' value='{{ duty_cycle_sp }}' /></p>
-<p>	position_sp<input name='position_sp' value='{{ position_sp }}' /></p>
-<p>	ramp_down_sp<input name='ramp_down_sp' value='{{ ramp_down_sp }}' /></p>
-<p>	ramp_up_sp<input name='ramp_up_sp' value='{{ ramp_up_sp }}' /></p>
-<p>
-</p>
 
 <a href="/motors">back</a>
 {% endblock %}
