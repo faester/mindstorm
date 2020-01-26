@@ -16,6 +16,8 @@ class Motor:
 	
 	def __construct_metadata__(self):
 		self.motorIO.add_string_file('address', 'r')
+		self.motorIO.add_int_file('speed', 'r')
+		self.motorIO.add_int_file('speed_sp', 'rw')
 		self.motorIO.add_array_file('command', 'w')
 		self.motorIO.add_array_file('commands', 'r')
 		self.motorIO.add_int_file('count_per_rot', 'r')
@@ -28,8 +30,6 @@ class Motor:
 		self.motorIO.add_int_file('position_sp', 'rw')
 		self.motorIO.add_int_file('ramp_down_sp', 'rw')
 		self.motorIO.add_int_file('ramp_up_sp', 'rw')
-		self.motorIO.add_int_file('speed', 'r')
-		self.motorIO.add_int_file('speed_sp', 'rw')
 		self.motorIO.add_string_file('state', 'r')
 		self.motorIO.add_string_file('stop_action', 'rw')
 		self.motorIO.add_array_file('stop_actions', 'r')
