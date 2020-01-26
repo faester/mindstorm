@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Sensors </title>
+</head>
+<body>
+<h1>Link to sensors below</h1>	
+{% for sensor in sensors %}
+	<p>
+		<a href='sensors/{{ sensor }}'>{{ sensor }}</a>
+	</p>
+{% endfor %}
+</body>
+</html>

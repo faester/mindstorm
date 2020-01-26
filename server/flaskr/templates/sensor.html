@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block page_title %}
+{{ driver_name  }}
+{% endblock %}
+{% block heading %}
+{{ address  }}
+{% endblock %}
+{% block main %}
+
+<!--  -->
+<div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">information</span>
+      </h4>
+      <ul class="list-group mb-3">
+	{% for value in main_model %}
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">{{ key }}</h6>
+            <small class="text-muted">Value for {{ key }}</small>
+          </div>
+          <span class="text-muted">{{ main_model[key] }}</span>
+        </li>
+	{% endfor %}
+     </ul>
+
+    </div>
+    <div class="col-md-8 order-md-1">
+      <h4 class='mb-3'>Commands</h4>
+      <form class='needs-validation' novalidate='' method='post'>
+        <div class='row'>
+          <div class="col-md-6 mb-3">
+            <label for='speed'>Speed</label>
+            <input type='range' class='form-control' min='0' max='{{ max_speed }}' step='100' id='speed' name='speed' placeholder='' value='{{speed}}' required=''>
+          </div>
+          <div class='col-md-6 mb-3'>
+            <label for='position_sp'>Position</label>
+            <input type='number' class='form-control' id='position_sp' name='position_sp' placeholder='' value='{{ position }}' required=''>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for='ramp_up'>Ramp up</label>
+            <input type='number_sp' class='form-control' id='ramp_up_sp' name='ramp_up_sp' placeholder='' value='{{ramp_up_sp}}' required=''>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for='ramp_down'>Ramp down</label>
+            <input type='number_sp' class='form-control' id='ramp_down_sp' name='ramp_down_sp' placeholder='' value='{{ramp_down_sp}}' required=''>
+          </div>
+        </div>
+
+	<div class='row'>
+	<div class='col-md-6 mb-3'>
+        <h4 class="mb-3">Mode</h4>
+        <div class="d-block my-3">
+	{% for mode_item in modes %}
+	<div class='custom-control custom-radio'>
+	  <input name='mode' id='modes_{{ mode_item }}' value='{{ mode_item }}' {% if stop_action == mode_item %}checked=''{% endif %} required='' type='radio' class='custom-control-input'>
+          <label class='custom-control-label' for='modes_{{ mode_item }}'>{{ mode_item }}</label>
+        </div>
+	{% endfor %}
+        </div>
+	</div>
+
+	<div class='col-md-6 mb-3'>
+        <h4 class="mb-3">Stop action</h4>
+        <div class="d-block my-3">
+	{% for stop_item in stop_actions %}
+	<div class='custom-control custom-radio'>
+	  <input name='stop_action' id='stop_actions_{{ stop_item }}' value='{{ stop_item }}' {% if stop_action == stop_item %}checked=''{% endif %} required='' type='radio' class='custom-control-input'>
+          <label class='custom-control-label' for='stop_actions_{{ stop_item }}'>{{ stop_item }}</label>
+        </div>
+	{% endfor %}
+        </div>
+        </div>
+        </div>
+
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+
+
+<!--  -->
+
+<a href="/motors">back</a>
+{% endblock %}

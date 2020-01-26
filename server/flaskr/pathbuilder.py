@@ -1,5 +1,6 @@
 import logging
 import flaskr.mindstorm.TachoMotor as TachoMotor
+import flaskr.mindstorm.Sensor as Sensor
 from flask import jsonify, request, render_template
 import json
 
@@ -27,6 +28,7 @@ class Decoder:
 		if contentType == 'application/x-www-form-urlencoded': 
 			self.log.info('form encoding')
 			return req.form
+		self.log.info('json encoding')
 		return req.json
 	
 class Encoder: 
@@ -37,6 +39,7 @@ class Encoder:
 		acceptHeader = req.headers.get('Accept')
 		if 'text/html' in acceptHeader.split(','):
 			self.log.debug(f'Got "{acceptHeader}" accept reader. Trying the template {template_name}')
+			self.log.debug(response_data)
 			return render_template(template_name, **response_data)
 		self.log.debug(f'Got "{acceptHeader}" accept reader. Returning response data.')
 		return response_data
@@ -67,7 +70,28 @@ class PathBuilder:
 
 		@self.app.route('/motors/<motor_name>', methods = ['POST'])
 		def post_motor(motor_name):
+			logger = logging.getLogger('post_motor')
 			motor = TachoMotor.Motor(self.basedir, motor_name = motor_name)
 			body = self.decoder.decode(request)
 			motor.post(**body)
 			return self.encoder.encode(request, 'motor.html', motor.get())
+
+		@self.app.route('/sensors')
+		def sensors():
+			sensorList = Sensor.SensorList(self.basedir)
+			return self.encoder.encode(request, 'sensors.html', sensorList.get_sensor_list())
+
+
+		@self.app.route('/sensors/<sensor_name>')
+		def get_sensors(sensor_name):
+			sensor = Sensor.Sensor(self.base_dir, sensor_name = sensor_name)
+			d = sensor.get()
+			d['main_model'] = d
+			return self.encoder.encode(request, 'sensor.html', d)
+
+		@self.app.route('/sensors/<sensor_name>')
+		def post_sensors(sensor_name):
+			sensor = Sensor.Sensor(self.base_dir, sensor_name = sensor_name)
+			body = self.decoder.decode(request)
+			sensor.post(**body)
+			return get_sensor(sensor_name)

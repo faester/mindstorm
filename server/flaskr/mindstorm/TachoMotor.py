@@ -52,7 +52,7 @@ class Motor:
 	def get(self):
 		return self.motorIO.get()
 	
-	def post(self, **kwargs):
+	def post(self, **kwargs):		
 		modified = self.motorIO.post(**kwargs)
 		return {"Ok": True, "modified": modified}
 
