@@ -57,7 +57,6 @@ class PathBuilder:
 		self.__setup_routes__()
 
 	def __setup_routes__(self): 
-
 		@self.app.route('/motors')
 		def motors():
 			motorList = TachoMotor.MotorList(self.basedir) 
@@ -94,4 +93,4 @@ class PathBuilder:
 			sensor = Sensor.Sensor(self.basedir, sensor_name = sensor_name)
 			body = self.decoder.decode(request)
 			sensor.post(**body)
-			return get_sensor(sensor_name)
+			return get_sensors(sensor_name)

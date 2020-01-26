@@ -39,6 +39,7 @@ class Sensor:
 		self.sensorIO.add_string_file('poll_ms', 'r')
 		self.sensorIO.add_string_file('text_value', 'r')
 		self.sensorIO.add_dictionary_file('uevent', 'r')
+		self.sensorIO.add_string_file('units', 'r')
 		for sensor_number in range(0,8): self.sensorIO.add_int_file(f'value{sensor_number}', 'r')
 
 	def get(self):
