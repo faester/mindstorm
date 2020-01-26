@@ -17,10 +17,10 @@
 	{% for value in main_model %}
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">{{ key }}</h6>
-            <small class="text-muted">Value for {{ key }}</small>
+            <h6 class="my-0">{{ value }}</h6>
+            <small class="text-muted">Value for {{ value }}</small>
           </div>
-          <span class="text-muted">{{ main_model[key] }}</span>
+          <span class="text-muted">{{ main_model[value] }}</span>
         </li>
 	{% endfor %}
      </ul>

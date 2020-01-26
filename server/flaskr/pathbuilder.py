@@ -84,7 +84,7 @@ class PathBuilder:
 
 		@self.app.route('/sensors/<sensor_name>')
 		def get_sensors(sensor_name):
-			sensor = Sensor.Sensor(self.base_dir, sensor_name = sensor_name)
+			sensor = Sensor.Sensor(self.basedir, sensor_name = sensor_name)
 			d = sensor.get()
 			d['main_model'] = d
 			return self.encoder.encode(request, 'sensor.html', d)

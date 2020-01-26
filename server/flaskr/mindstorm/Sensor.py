@@ -12,7 +12,7 @@ class SensorList:
 	def get_directory_for_sensor(self, sensor_name):
 		return self.mindstormDirectory.subdir(sensor_name)
 
-class Motor:
+class Sensor:
 	""" Abstraction of a sensor in Mindstorms on EV3 """
 	def __init__(self, basedir, sensor_number = None, sensor_name = None): 
 		if sensor_number is None and sensor_name is None: 	
@@ -23,7 +23,6 @@ class Motor:
 			self.mindstormDirectory = Mindstorm.Directory(basedir, "lego-sensor", sensor_name)
 		self.sensorIO = Mindstorm.SensorMotorIO(self.mindstormDirectory)
 		self.__construct_metadata__()
-		self.commands()
 	
 	def __construct_metadata__(self):
 		self.sensorIO.add_string_file('address', 'r')
@@ -37,8 +36,8 @@ class Motor:
 		self.sensorIO.add_string_file('mode', 'rw')
 		self.sensorIO.add_array_file('modes', 'r')
 		self.sensorIO.add_int_file('num_values', 'r')
-		self.sensorIO.add_int_file('poll_ms', 'r')
-		self.sensorIO.add_int_file('text_value', 'r')
+		self.sensorIO.add_string_file('poll_ms', 'r')
+		self.sensorIO.add_string_file('text_value', 'r')
 		self.sensorIO.add_dictionary_file('uevent', 'r')
 		for sensor_number in range(0,8): self.sensorIO.add_int_file(f'value{sensor_number}', 'r')
 

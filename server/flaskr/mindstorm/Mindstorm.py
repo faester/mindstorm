@@ -52,7 +52,10 @@ class SensorMotorIO:
 		if 'r' in mode: self.readable_keys.append(key)
 
 	def add_int_file(self, file_name, mode):
-		self.mappers[file_name] = int
+		def intparser(x): 
+			if x is None or x == "": return 0
+			else: return int(x)
+		self.mappers[file_name] = intparser
 		self.__add_key__(file_name, mode)
 
 	def add_string_file(self, file_name, mode):
