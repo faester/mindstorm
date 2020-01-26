@@ -16,7 +16,6 @@ class Motor:
 	
 	def __construct_metadata__(self):
 		self.motorIO.add_string_file('address', 'r')
-		self.motorIO.add_string_file('command', 'rw')
 		self.motorIO.add_array_file('commands', 'r')
 		self.motorIO.add_int_file('count_per_rot', 'r')
 		self.motorIO.add_string_file('driver_name', 'r')

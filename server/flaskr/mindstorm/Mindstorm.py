@@ -9,7 +9,6 @@ class Directory:
 		self.log = logging.getLogger('Directory')
 	
 	def __openFileInSubdir(self, filename, mode): 
-		self.log.debug('Opening file {filename} in mode {mode}'.format(filename = filename, mode = mode))
 		return open(os.path.join(self.directory, filename), mode)
 
 	def read_from_file(self, filename):
@@ -85,12 +84,19 @@ class SensorMotorIO:
 			if (self.conditional_key(file_name, result)):
 				result[file_name] = self.mappers[file_name](self.mindstormDirectory.read_from_file(file_name))
 		return result
-	
+
+	def flatten(self, x):
+		if isinstance(x, list): 
+			if len(x) > 0: return x[0]
+			return None
+		return x	
+
 	def post(self, **kwargs):
 		modified = []
 		for file_name in [f for f in self.writable_keys if f in kwargs]:
 			modified.append(file_name)
-			value = str(kwargs[file_name])
+			value = str(self.flatten(kwargs[file_name]))
+
 			self.log.debug('Writing "{value}" to "{file_name}".'.format(value = value, file_name = file_name))
 			self.mindstormDirectory.write_to_file(file_name, value)
 		return modified
