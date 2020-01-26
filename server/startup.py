@@ -1,6 +1,5 @@
 import flaskr
 import waitress
-import flaskr.prod_config
 
 app=flaskr.create_app(basedir='/sys/class')
 

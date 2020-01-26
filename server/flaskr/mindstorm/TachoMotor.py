@@ -7,7 +7,7 @@ class Motor:
 		if motor_number is None and motor_name is None: 	
 			self.mindstormDirectory = Mindstorm.Directory(basedir)
 		elif motor_name is None:
-			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", f'motor{motor_number}')
+			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", 'motor{motor_number}'.format(motor_number = motor_number))
 		else:
 			self.mindstormDirectory = Mindstorm.Directory(basedir, "tacho-motor", motor_name)
 		self.motorIO = Mindstorm.SensorMotorIO(self.mindstormDirectory)

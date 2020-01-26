@@ -38,10 +38,10 @@ class Encoder:
 	def encode(self, req, template_name, response_data):
 		acceptHeader = req.headers.get('Accept')
 		if 'text/html' in acceptHeader.split(','):
-			self.log.debug(f'Got "{acceptHeader}" accept reader. Trying the template {template_name}')
+			self.log.debug('Got "{acceptHeader}" accept reader. Trying the template {template_name}'.format(acceptHeader = acceptHeader, template_name = template_name))
 			self.log.debug(response_data)
 			return render_template(template_name, **response_data)
-		self.log.debug(f'Got "{acceptHeader}" accept reader. Returning response data.')
+		self.log.debug('Got "{acceptHeader}" accept reader. Returning response data.'.format(acceptHeader = acceptHeader))
 		return response_data
 
 

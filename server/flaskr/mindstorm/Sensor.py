@@ -18,7 +18,7 @@ class Sensor:
 		if sensor_number is None and sensor_name is None: 	
 			self.mindstormDirectory = Mindstorm.Directory(basedir)
 		elif sensor_name is None:
-			self.mindstormDirectory = Mindstorm.Directory(basedir, "lego-sensor", f'sensor{sensor_number}')
+			self.mindstormDirectory = Mindstorm.Directory(basedir, "lego-sensor", 'sensor{sensor_number}'.format(sensor_number = sensor_number))
 		else:
 			self.mindstormDirectory = Mindstorm.Directory(basedir, "lego-sensor", sensor_name)
 		self.sensorIO = Mindstorm.SensorMotorIO(self.mindstormDirectory)
@@ -40,7 +40,7 @@ class Sensor:
 		self.sensorIO.add_string_file('text_value', 'r')
 		self.sensorIO.add_dictionary_file('uevent', 'r')
 		self.sensorIO.add_string_file('units', 'r')
-		for sensor_number in range(0,8): self.sensorIO.add_int_file(f'value{sensor_number}', 'r')
+		for sensor_number in range(0,8): self.sensorIO.add_int_file('value{sensor_number}'.format(sensor_number = sensor_number), 'r')
 
 	def get(self):
 		return self.sensorIO.get()

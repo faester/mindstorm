@@ -16,10 +16,10 @@ def create_app(basedir = '../sys/class'):
 	try: 
 		os.makedirs(app.instance_path)
 	except OSError as err:
-		logging.info(f'Instance path "{app.instance_path}" already exists.')
+		logging.info('Instance path "{instance_path}" already exists.'.format(instance_path = app.instance_path))
 		pass
 
-	logging.warn(f'base dir is {basedir}')
+	logging.warn('base dir is {basedir}'.format(basedir = basedir))
 
 	path_builder = pathbuilder.PathBuilder(app, basedir)
 
