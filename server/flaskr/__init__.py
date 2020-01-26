@@ -7,25 +7,21 @@ from flask import render_template
 from . import pathbuilder
 import json 
 
-def create_app(test_config = None): 
+def create_app(basedir = '../sys/class'): 
 	# Create and configure the app
 	app = Flask(__name__, instance_relative_config = True)
 	app.config.from_mapping(FOO = 'bar', GRINGOS = 'Loco')
 	configure_logging()
 	
-	if test_config is None: 
-		# Load config from py_file 
-		app.config.from_pyfile('config.py', silent = True)
-	else: 
-		app.config.from_mapping(test_config)
-
 	try: 
 		os.makedirs(app.instance_path)
 	except OSError as err:
 		logging.info(f'Instance path "{app.instance_path}" already exists.')
 		pass
 
-	path_builder = pathbuilder.PathBuilder(app, '../sys/class')
+	logging.warn(f'base dir is {basedir}')
+
+	path_builder = pathbuilder.PathBuilder(app, basedir)
 
 	@app.route('/hello')
 	def hello(): 
