@@ -1,12 +1,15 @@
 import os
+import logging
 
 class Directory:
 	""" Defines methods for communicating with a mindstorm directory """
 
 	def __init__(self, base, *args):
 		self.directory = os.path.join(base, *args)
+		self.log = logging.getLogger('Directory')
 	
 	def __openFileInSubdir(self, filename, mode): 
+		self.log.debug('Opening file {filename} in mode {mode}', format(filename = filename, mode = mode))
 		return open(os.path.join(self.directory, filename), mode)
 
 	def read_from_file(self, filename):
