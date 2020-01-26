@@ -89,9 +89,9 @@ class PathBuilder:
 			d['main_model'] = d
 			return self.encoder.encode(request, 'sensor.html', d)
 
-		@self.app.route('/sensors/<sensor_name>')
+		@self.app.route('/sensors/<sensor_name>', methods = ['POST'])
 		def post_sensors(sensor_name):
-			sensor = Sensor.Sensor(self.base_dir, sensor_name = sensor_name)
+			sensor = Sensor.Sensor(self.basedir, sensor_name = sensor_name)
 			body = self.decoder.decode(request)
 			sensor.post(**body)
 			return get_sensor(sensor_name)
