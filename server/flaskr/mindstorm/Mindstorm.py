@@ -91,7 +91,7 @@ class SensorMotorIO:
 		for file_name in [f for f in self.writable_keys if f in kwargs]:
 			modified.append(file_name)
 			value = str(kwargs[file_name])
-			log.debug('Writing "{value}" to "{file_name}".'.format(value = value, file_name = file_name))
+			self.log.debug('Writing "{value}" to "{file_name}".'.format(value = value, file_name = file_name))
 			self.mindstormDirectory.write_to_file(file_name, value)
 		return modified
 
