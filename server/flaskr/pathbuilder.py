@@ -22,13 +22,12 @@ class Decoder:
 		self.log = logging.getLogger('decode')
 
 	def decode(self, req):
-		self.log.info('is decoding')
 		contentType = req.headers.get('Content-Type')
-		self.log.info(contentType)
+		self.log.debug(contentType)
 		if contentType == 'application/x-www-form-urlencoded': 
-			self.log.info('form encoding')
+			self.log.debug('form encoding')
 			return req.form
-		self.log.info('json encoding')
+		self.log.debug('json encoding')
 		return req.json
 	
 class Encoder: 
@@ -39,7 +38,7 @@ class Encoder:
 		acceptHeader = req.headers.get('Accept')
 		if 'text/html' in acceptHeader.split(','):
 			self.log.debug('Got "{acceptHeader}" accept reader. Trying the template {template_name}'.format(acceptHeader = acceptHeader, template_name = template_name))
-			self.log.debug(response_data)
+			response_data['main_model'] = response_data
 			return render_template(template_name, **response_data)
 		self.log.debug('Got "{acceptHeader}" accept reader. Returning response data.'.format(acceptHeader = acceptHeader))
 		return response_data
@@ -92,7 +91,6 @@ class PathBuilder:
 		def get_sensors(sensor_name):
 			sensor = Sensor.Sensor(self.basedir, sensor_name = sensor_name)
 			d = sensor.get()
-			d['main_model'] = d
 			return self.encoder.encode(request, 'sensor.html', d)
 
 		@self.app.route('/sensors/<sensor_name>', methods = ['POST'])
