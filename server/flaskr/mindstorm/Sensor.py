@@ -35,7 +35,6 @@ class Sensor:
 		self.sensorIO.add_string_file('mode', 'rw')
 		self.sensorIO.add_array_file('modes', 'r')
 		self.sensorIO.add_int_file('num_values', 'r')
-		self.sensorIO.add_string_file('poll_ms', 'r')
 		self.sensorIO.add_string_file('text_value', 'r')
 		self.sensorIO.add_dictionary_file('uevent', 'r')
 		self.sensorIO.add_string_file('units', 'r')
