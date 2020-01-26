@@ -34,3 +34,7 @@ brick running with two motors and the IR sensor connected. It is meant
 for tests and development, where the brick is not actually running. 
 (ie: a very simple simulator.)
 
+# Make it run on the brick
+1. install flask `pip install flask --user`
+2. install waitress `pip install waitress --user`
+3. Run flask app in waitress `python3 startup.py`
