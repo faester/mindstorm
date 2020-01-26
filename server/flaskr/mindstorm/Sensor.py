@@ -30,7 +30,6 @@ class Sensor:
 		self.sensorIO.add_string_file('bin_data_format', 'r')
 		self.sensorIO.add_array_file('commands', 'r')
 		self.sensorIO.add_int_file('decimals', 'r')
-		self.sensorIO.add_string_file('direct', 'r')
 		self.sensorIO.add_string_file('driver_name', 'r')
 		self.sensorIO.add_string_file('fw_version', 'r')
 		self.sensorIO.add_string_file('mode', 'rw')
