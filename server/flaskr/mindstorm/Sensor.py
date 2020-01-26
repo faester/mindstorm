@@ -26,8 +26,6 @@ class Sensor:
 	
 	def __construct_metadata__(self):
 		self.sensorIO.add_string_file('address', 'r')
-		self.sensorIO.add_string_file('bin_data', 'r')
-		self.sensorIO.add_string_file('bin_data_format', 'r')
 		self.sensorIO.add_array_file('commands', 'r')
 		self.sensorIO.add_int_file('decimals', 'r')
 		self.sensorIO.add_string_file('driver_name', 'r')

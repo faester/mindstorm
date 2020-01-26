@@ -37,6 +37,7 @@ class SensorMotorIO:
 		self.readable_keys = []
 		self.writable_keys = []
 		self.mappers = {}
+		self.log = logging.getLogger('SensorMotorIO')
 		def dosplit(x): return [item.replace('\n', '') for item in x.split(' ')]
 		def str_no_newline(x): return x.replace('\n', '')
 		def dictionary(x): 
@@ -89,6 +90,8 @@ class SensorMotorIO:
 		modified = []
 		for file_name in [f for f in self.writable_keys if f in kwargs]:
 			modified.append(file_name)
-			self.mindstormDirectory.write_to_file(file_name, str(kwargs[file_name]))
+			value = str(kwargs[file_name])
+			log.debug('Writing "{value}" to "{file_name}".'.format(value = value, file_name = file_name))
+			self.mindstormDirectory.write_to_file(file_name, value)
 		return modified
 
