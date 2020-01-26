@@ -72,11 +72,17 @@ class SensorMotorIO:
 	def add_array_file(self, file_name, mode):
 		self.mappers[file_name] = self.__split__
 		self.__add_key__(file_name, mode)
+
+	def conditional_key(self, key_name, current_values):
+		if (key_name.startswith('value')):
+			return int(key_name[5]) < current_values['num_values']
+		return True
 	
 	def get(self):
 		result = {}
 		for file_name in self.readable_keys:
-			result[file_name] = self.mappers[file_name](self.mindstormDirectory.read_from_file(file_name))
+			if (self.conditional_key(file_name, result)):
+				result[file_name] = self.mappers[file_name](self.mindstormDirectory.read_from_file(file_name))
 		return result
 	
 	def post(self, **kwargs):
