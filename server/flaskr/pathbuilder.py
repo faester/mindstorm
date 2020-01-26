@@ -73,10 +73,13 @@ class PathBuilder:
 			motor = TachoMotor.Motor(self.basedir, motor_name = motor_name)
 			body = self.decoder.decode(request)
 			speed_sp = body['speed_sp']
+			command = body['command']
 			motor.post(**body)
 			refreshed = motor.get()
 			if not speed_sp is None:
 				refreshed['speed'] = speed_sp
+			if not command is None: 
+				refreshed['command'] = command
 			return self.encoder.encode(request, 'motor.html', refreshed)
 
 		@self.app.route('/sensors')

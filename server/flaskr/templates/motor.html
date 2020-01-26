@@ -96,7 +96,7 @@
         <div class="d-block my-3">
 	{% for command_item in commands %}
 	<div class='custom-control custom-radio'>
-	  <input name='command' id='commands_{{ command_item }}' value='{{ command_item }}' {% if stop_action == command_item %}checked=''{% endif %} required='' type='radio' class='custom-control-input'>
+	  <input name='command' id='commands_{{ command_item }}' value='{{ command_item }}' {% if command_item == command %}checked='checked'{% endif %} required='' type='radio' class='custom-control-input'>
           <label class='custom-control-label' for='commands_{{ command_item }}'>{{ command_item }}</label>
         </div>
 	{% endfor %}
