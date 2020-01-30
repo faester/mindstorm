@@ -83,6 +83,7 @@ class SensorMotorIO:
 		for file_name in self.readable_keys:
 			if (self.conditional_key(file_name, result)):
 				result[file_name] = self.mappers[file_name](self.mindstormDirectory.read_from_file(file_name))
+		result['__writable'] = self.writable_keys
 		return result
 
 	def flatten(self, x):
