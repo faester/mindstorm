@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title> Sensors </title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block page_title %}
+Sensors
+{% endblock %}
+{% block heading %}
+{{ address  }}
+{% endblock %}
+{% block main %}
 <h1>Link to sensors below</h1>	
+<div class='card-deck mb-3 text-center'>
 {% for sensor in sensors %}
-	<p>
-		<a href='sensors/{{ sensor }}'>{{ sensor }}</a>
-	</p>
+<div class='card mb-4 shadow-sm'>
+<div class='card-header'>
+{{ sensor }}
+</div>
+<div class='card-body'>
+		<a class='btn btn-lg btn-block btn-primary' href='sensors/{{ sensor }}'>Control sensor</a>
+</div>
+</div>
 {% endfor %}
-</body>
-</html>
+</div>
+{% endblock %}

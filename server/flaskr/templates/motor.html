@@ -72,7 +72,11 @@
         <div class='row'>
           <div class="col-md-6 mb-3">
             <label for='speed_sp'>Speed</label>
-            <input type='range' class='form-control' min='{{ -max_speed }}' max='{{ max_speed }}' step='100' id='speed_sp' name='speed_sp' placeholder='' value='{{speed}}' required=''>
+            <input type='range' class='form-control' min='{{ -max_speed }}' max='{{ max_speed }}' id='speed_sp' name='speed_sp' placeholder='' value='{{speed}}' required=''
+	oninput='document.getElementById("speed_sp_value").value = document.getElementById("speed_sp").value'>
+            <input type='number' class='form-control' min='{{ -max_speed }}' max='{{ max_speed }}' id='speed_sp_value' value='{{speed}}' name='speed_sp_value'
+	onkeyup='document.getElementById("speed_sp").value = document.getElementById("speed_sp_value").value'>
+
           </div>
           <div class='col-md-6 mb-3'>
             <label for='position_sp'>Position</label>

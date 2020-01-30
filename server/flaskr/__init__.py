@@ -2,7 +2,7 @@ import os
 import logging
 import logging.config
 
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask import render_template
 from . import pathbuilder
 import json 
@@ -27,6 +27,13 @@ def create_app(basedir = '../sys/class'):
 	def hello(): 
 		return 'We are up and running'
 
+	@app.route('/mindstorm-client.js')
+	def mindstorm_client():
+		return send_from_directory('../static/', 'mindstorm-client.js')
+
+	@app.route('/')
+	def index():
+		return render_template('main.html', title = 'main page', heading = 'We are trying to be dynamic')
 
 	@app.route('/test-template')
 	def testTemplate(): 
