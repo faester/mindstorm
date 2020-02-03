@@ -31,6 +31,14 @@ def create_app(basedir = '../sys/class'):
 	def mindstorm_client():
 		return send_from_directory('../static/', 'mindstorm-client.js')
 
+	@app.route('/sensor-template')
+	def motor_template():
+		return send_from_directory('../static', 'sensor-template.html')
+
+	@app.route('/motor-template')
+	def sensor_template():
+		return send_from_directory('../static', 'motor-template.html')
+
 	@app.route('/')
 	def index():
 		return render_template('main.html', title = 'main page', heading = 'We are trying to be dynamic')
