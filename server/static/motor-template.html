@@ -1,9 +1,9 @@
-<div class='col-md-4'>
-	<h1><span data-bind='address' data-attr='innerText'/></h1>
-	<div class='form-group row'>
-		<label class='col-sm-4 col-form-label'>Speed</label>
-		<div class='col-sm-8'>
-		<input class='form-control' data-attr='value' data-bind='speed' data-post='speed_sp' />
+<div class='col-md-12'>
+	<h4><span data-bind='address' data-attr='innerText'/></h1>
+	<div class='form-group'>
+		<label class='col-form-label'>Speed</label>
+		<div >
+		<input type='range' data-bind-attr-min='-max_speed' data-bind-attr-max='max_speed'  class='form-control' data-attr='value' data-bind='speed' data-post='speed_sp' />
 		</div>
 	</div>
 	<ul>

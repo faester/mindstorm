@@ -148,6 +148,23 @@ function getDataFor(motorName, dataPath) {
 				} else {
 					$(me).attr(attr, value);
 				}
+				for(var aix = 0; aix < me.attributes.length; aix++) {
+					var attr = me.attributes[aix];
+					if (!attr.name.startsWith('data-bind-attr-')) {
+						continue;
+					}
+					var propertyname = attr.value.startsWith('-')
+						? attr.value.substr(1) 
+						: attr.value; 
+					var negative = attr.value.startsWith('-')
+						? -1 : 1;
+					
+					var attributeName = attr.name.substring('data-bind-attr-'.length);
+					var value = negative * responseObject[propertyname];
+
+					console.log("Binding" , attr, propertyname, negative, attributeName, value);
+					$(me).attr(attributeName, value);
+				}
 			});
 
 	}, 'json');	
