@@ -19,8 +19,8 @@ wait_for_motor() {
 	done
 }
 
-leftadjust=$(awk "BEGIN {print int((500 - $currentLeft)*$degreesPerMilli)}")
-rightadjust=$(awk "BEGIN {print int((500 - $currentRight)*$degreesPerMilli)}")
+leftadjust=$(awk "BEGIN {print int(($standardLength - $currentLeft)*$degreesPerMilli)}")
+rightadjust=$(awk "BEGIN {print int(($standardLength - $currentRight)*$degreesPerMilli)}")
 
 leftspeed=100
 rightspeed=$(awk "BEGIN {print int($leftspeed*($rightadjust/$leftadjust))}")
