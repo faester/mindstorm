@@ -17,9 +17,6 @@ fi
 
 source config.sh
 
-echo $moveleft
-echo $moveright
-
 move_motor() {
 	motor=$1
 	speed=$2

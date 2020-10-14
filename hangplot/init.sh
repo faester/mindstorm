@@ -19,14 +19,8 @@ done
 
 degreesPerMilli=$(awk "BEGIN {print (1440/250)}")
 echo degreesPerMilli=$degreesPerMilli >>$output
-echo "What is the length of LEFT line in mm:"
-read leftlength
-echo "What is the length of RIGHT line in mm:"
-read rightlength
 echo "What is the WIDTH between line anchors at top:"
 read width 
-echo leftlength=$leftlength >> $output
-echo rightlength=$rightlength >> $output
 echo width=$width  >> $output
-
+echo standardLength=500 >> $output
 cat $output

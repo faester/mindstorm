@@ -2,8 +2,5 @@
 source config.sh
 
 for m in $left $right $pen; do
-	echo $m ::::::
-	cat $m/state
-	cat $m/speed
-	cat $m/position
+	echo "$m state=$(cat $m/state) speed=$(cat $m/speed) pos=$(cat $m/position)"
 done
