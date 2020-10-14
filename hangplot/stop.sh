@@ -1,6 +1,6 @@
 #!/bin/bash
 source config.sh
-echo $left
-echo $right
-echo $pen
-
+for m in $left $right $pen; do
+	echo stopping $m
+	echo stop >> $m/command
+done
