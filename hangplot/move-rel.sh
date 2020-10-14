@@ -10,7 +10,10 @@ if [[ "$1" =~ r ]]; then
 	moveright=true
 fi
 relpos=$2
-speed=100
+speed=$3
+if [[ "$speed" == "" ]]; then 
+	speed=100
+fi
 
 source config.sh
 
