@@ -9,8 +9,8 @@ r2=$(awk "BEGIN {print $standardLength - $rightpos/$degreesPerMilli}")
 
 echo $leftpos $r1 $rightpos $r2
 
-x=$(awk "BEGIN {print ($r1 - $r2 + $width^2)/(2 * $width)}")
+x=$(awk "BEGIN {print int(($r1 - $r2 + $width^2)/(2 * $width))}")
 echo finding y
-y=$(awk "BEGIN {print (sqrt($r1 * $r1 - $x * $x))}")
+y=$(awk "BEGIN {print int(sqrt($r1 * $r1 - $x * $x))}")
 
 echo $x $y
