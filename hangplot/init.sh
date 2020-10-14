@@ -17,4 +17,7 @@ for m in $(ls $motordir); do
 	fi
 done
 
+degreesPerMilli=$(awk "BEGIN {print (1440/250)}")
+echo degreesPerMilli=$degreesPerMilli >>$output
+
 cat $output
