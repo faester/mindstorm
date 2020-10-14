@@ -1,11 +1,13 @@
 #!/bin/bash
-moveleft=0
-moveright=0
+moveleft=false
+moveright=false
 if  [[ "$1" =~ l ]]; then 
-	moveleft=1
+	echo moveleft
+	moveleft=true
 fi
 if [[ "$1" =~ r ]]; then
-	moveright=1
+	echo moveright
+	moveright=true
 fi
 relpos=$2
 speed=100
@@ -25,11 +27,11 @@ move_motor() {
 	echo run-to-rel-pos > $motor/command
 }
 
-if [ $moveleft ]; then 
+if [ "$moveleft" = true ]; then 
 	move_motor $left $speed $relpos
 fi
 
-if [ $moveright ]; then
+if [ "$moveright" = true ]; then
 	move_motor $right $speed $relpos
 fi
 
