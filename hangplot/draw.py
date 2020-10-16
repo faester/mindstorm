@@ -68,10 +68,11 @@ def move_to(target):
 def pen_mode(down):
     write_file(pen + '/speed_sp', '100')
     if down:
-        write_file(pen + '/position_sp', '50')
+        write_file(pen + '/position_sp', '30')
     else:
-        write_file(pen + '/position_sp', '-50')
+        write_file(pen + '/position_sp', '-30')
     write_file(pen + '/command', 'run-to-rel-pos')
+    wait_for(pen)
 
 def read_points(filename):
     f=open(filename, 'r')
@@ -87,15 +88,17 @@ def read_points(filename):
     return result
 
 
-pen_mode(0)
 move_to(translate)
 points = read_points(sys.argv[3])
 print(points)
 
 for line in points:
-    pen_mode(1)
+    first=1
+    pen_mode(0)
     for point in line:
         translated=(point[0] + translate[0], point[1] + translate[1])
+        if first:
+            first=0
+            pen_mode(1)
         move_to(translated)
-    pen_mode(0)
 
