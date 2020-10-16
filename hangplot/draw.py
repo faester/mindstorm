@@ -65,6 +65,14 @@ def move_to(target):
     wait_for(left)
     wait_for(right)
 
+def pen_mode(down):
+    write_file(pen + '/speed_sp', '100')
+    if down:
+        write_file(pen + '/position_sp', '50')
+    else:
+        write_file(pen + '/position_sp', '-50')
+    write_file(pen + '/command', 'run-to-rel-pos')
+
 def read_points(filename):
     f=open(filename, 'r')
     result=[]
@@ -74,12 +82,20 @@ def read_points(filename):
         for element in line.split():
             if element != "":
                 coord=element.split(',')
-                print(coord)
                 points.append((int(coord[0]), int(coord[1])))
         result.append(points)
     return result
 
 
-#move_to(translate)
+pen_mode(0)
+move_to(translate)
 points = read_points(sys.argv[3])
 print(points)
+
+for line in points:
+    pen_mode(1)
+    for point in line:
+        translated=(point[0] + translate[0], point[1] + translate[1])
+        move_to(translated)
+    pen_mode(0)
+
