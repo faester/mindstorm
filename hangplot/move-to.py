@@ -15,7 +15,7 @@ def read_file(filename):
     f=open(filename, 'r')
     content=f.read()
     f.close()
-    return content
+    return content.strip()
 
 def degrees(motor):
     return int(read_file(motor + '/position'))
@@ -37,7 +37,7 @@ def start_move(motor, target_position, speed):
     write_file(motor + '/command', 'run-to-rel-pos')
 
 def wait_for(motor):
-    while read_file(motor + '/state') != '':
+    while read_file(motor + '/state') == 'running':
         print ('Waiting for ' + motor)
         time.sleep(1)
 
