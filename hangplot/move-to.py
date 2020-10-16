@@ -41,6 +41,11 @@ def wait_for(motor):
         print ('Waiting for ' + motor)
         time.sleep(1)
 
+def get_speed(desired_speed, speed):
+    max_speed = max(abs(speed[0]), abs(speed[1]))
+    scale = desired_speed / max_speed
+    return (abs(speed[0] * scale), abs(speed[1] * scale))
+
 current_wires=(standardLength + degrees(left)/degreesPerMilli,standardLength + degrees(right)/degreesPerMilli)
 
 print (left, right, target)
@@ -49,7 +54,8 @@ target_wires=to_wire_length(target)
 print (target_wires)
 adjust=(degreesPerMilli * (target_wires[0]-current_wires[0]),degreesPerMilli * (target_wires[1]-current_wires[1]))
 print (adjust)
-speed=(100, 100 * adjust[1] / adjust[0])
+speed=get_speed(100, adjust)
+print (speed)
 start_move(left, adjust[0], speed[0])
 start_move(right, adjust[1], speed[1])
 wait_for(left)
