@@ -32,8 +32,14 @@ let oppositeX=$width-$targety
 desiredLengthLeft=$(awk "BEGIN {print int(sqrt($targetx*$targetx + $targety*$targety )) } ")
 desiredLengthRight=$(awk "BEGIN {print int(sqrt($oppositeX*$oppositeX + $targety*$targety )) } ")
 
-let deltaleft=$desiredLengthLeft-$(current_length $left)
-let deltaright=$desiredLengthRight-$(current_length $right)
+echo Desired length $desiredLengthLeft $desiredLengthRight
+
+let currentLeft=$(current_length $left)
+let currentRight=$(current_length $right)
+echo Current $currentLeft $currentRight
+
+let deltaleft=$desiredLengthLeft-$currentLeft
+let deltaright=$desiredLengthRight-$currentRight
 
 degreesleft=$(awk "BEGIN {print int($deltaleft * $degreesPerMilli)}")
 degreesright=$(awk "BEGIN {print int($deltaright * $degreesPerMilli)}")
@@ -41,12 +47,11 @@ degreesright=$(awk "BEGIN {print int($deltaright * $degreesPerMilli)}")
 speedleft=100
 speedright=$(awk "BEGIN {print int($speedleft * ($deltaright / $deltaleft))}")
 
-echo $desiredLengthLeft $desiredLengthRight
-echo $deltaleft $deltaright
-echo $degreesleft $degreesright $speedleft $speedright
+echo Deltas $deltaleft $deltaright
+echo Adjust $degreesleft $degreesright $speedleft $speedright
 
-./move-rel.sh l $degreesleft $speedleft
-./move-rel.sh r $degreesright $speedright
+#./move-rel.sh l $degreesleft $speedleft
+#./move-rel.sh r $degreesright $speedright
 
 wait_for_motor $left
 wait_for_motor $right
