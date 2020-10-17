@@ -8,8 +8,8 @@ if len(sys.argv) != 4:
 
 translate=(int(sys.argv[1]), int(sys.argv[2]))
 
-left='/sys/class/tacho-motor/motor0'
-right='/sys/class/tacho-motor/motor1'
+left='/sys/class/tacho-motor/motor4'
+right='/sys/class/tacho-motor/motor3'
 pen='/sys/class/tacho-motor/motor2'
 degreesPerMilli=5.76
 width=430
@@ -58,7 +58,7 @@ def move_to(target):
     print (target_wires)
     adjust=(degreesPerMilli * (target_wires[0]-current_wires[0]),degreesPerMilli * (target_wires[1]-current_wires[1]))
     print (adjust)
-    speed=get_speed(100, adjust)
+    speed=get_speed(150, adjust)
     print (speed)
     start_move(left, adjust[0], speed[0])
     start_move(right, adjust[1], speed[1])
@@ -66,11 +66,11 @@ def move_to(target):
     wait_for(right)
 
 def pen_mode(down):
-    write_file(pen + '/speed_sp', '100')
+    write_file(pen + '/speed_sp', '200')
     if down:
-        write_file(pen + '/position_sp', '30')
+        write_file(pen + '/position_sp', '-80')
     else:
-        write_file(pen + '/position_sp', '-30')
+        write_file(pen + '/position_sp', '80')
     write_file(pen + '/command', 'run-to-rel-pos')
     wait_for(pen)
 
@@ -88,17 +88,18 @@ def read_points(filename):
     return result
 
 
+pen_mode(0)
 move_to(translate)
 points = read_points(sys.argv[3])
 print(points)
 
 for line in points:
     first=1
-    pen_mode(0)
     for point in line:
         translated=(point[0] + translate[0], point[1] + translate[1])
+        move_to(translated)
         if first:
             first=0
             pen_mode(1)
-        move_to(translated)
-
+                
+    if not first: pen_mode(0)
