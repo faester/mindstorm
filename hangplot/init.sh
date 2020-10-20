@@ -24,3 +24,24 @@ read width
 echo width=$width  >> $output
 echo standardLength=500 >> $output
 cat $output
+
+source config.sh
+
+echo $left
+echo $right
+echo $pen
+echo $width
+
+output=config.py
+
+echo "class Config:" >$output
+echo "  def __init__(self):" >>$output
+echo "    self.left = \"$left\"" >> $output
+echo "    self.right = \"$right\"" >> $output
+echo "    self.pen = \"$pen\"" >> $output
+echo "    self.width = $width" >> $output
+echo >> $output
+echo "  def getLeftMotor(self): return self.left" >> $output
+echo "  def getRightMotor(self): return self.right" >> $output
+echo "  def getPenMotor(self): return self.pen" >> $output
+echo "  def getAnchorDistance(self): return self.width" >> $output

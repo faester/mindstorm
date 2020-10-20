@@ -2,6 +2,14 @@ import sys
 import time
 import math
 
+from config import Config
+
+config = Config()
+print(config.getLeftMotor())
+print(config.getRightMotor())
+print(config.getPenMotor())
+print(config.getAnchorDistance())
+
 if len(sys.argv) != 4:
     print("Expecting three parameters: translate x, translate y, pointsfile")
     exit 
