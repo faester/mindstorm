@@ -4,13 +4,11 @@ import math
 
 from config import Config
 from plotter import Plotter
+from point_reader import PointReader
 
 config = Config()
-print(config.getLeftMotor())
-print(config.getRightMotor())
-print(config.getPenMotor())
-print(config.getAnchorDistance())
 plotter = Plotter(config)
+pointReader = PointReader()
 
 if len(sys.argv) != 4:
     print("Expecting three parameters: translate x, translate y, pointsfile")
@@ -18,23 +16,13 @@ if len(sys.argv) != 4:
 
 translate=(int(sys.argv[1]), int(sys.argv[2]))
 
-def read_points(filename):
-    f=open(filename, 'r')
-    result=[]
-    lines=f.readlines()
-    for line in lines:
-        points=[]
-        for element in line.split():
-            if element != "":
-                coord=element.split(',')
-                points.append((int(coord[0]), int(coord[1])))
-        result.append(points)
-    return result
-
-
 plotter.pen_mode(0)
 plotter.move_to(translate)
-points = read_points(sys.argv[3])
+pointReader.read_points(sys.argv[3])
+points = pointReader.getLines()
+print(points)
+pointReader.subdivide_lines()
+points = pointReader.getLines()
 print(points)
 exit(1)
 
