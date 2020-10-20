@@ -39,8 +39,8 @@ class Plotter:
 
     def wait_for(self,motor):
         while self.read_file(motor + '/state') == 'running':
-            print ('Waiting for ' + motor)
-            time.sleep(1)
+            print ('.', end = '')
+            time.sleep(0.5)
 
     def calculate_speed(self,desired_speed, speed):
         max_speed = max(abs(speed[0]), abs(speed[1]))
@@ -49,14 +49,9 @@ class Plotter:
 
     def move_to(self,target):
         current_wires=(self.standardLength + self.degrees(self.left)/self.degreesPerMilli,self.standardLength + self.degrees(self.right)/self.degreesPerMilli)
-        print (self.left, self.right, target)
-        print (current_wires)
         target_wires=self.to_wire_length(target)
-        print (target_wires)
         adjust=(self.degreesPerMilli * (target_wires[0]-current_wires[0]),self.degreesPerMilli * (target_wires[1]-current_wires[1]))
-        print (adjust)
         speed=self.calculate_speed(150, adjust)
-        print (speed)
         self.start_move(self.left, adjust[0], speed[0])
         self.start_move(self.right, adjust[1], speed[1])
         self.wait_for(self.left)

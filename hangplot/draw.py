@@ -21,18 +21,21 @@ plotter.move_to(translate)
 pointReader.read_points(sys.argv[3])
 points = pointReader.getLines()
 print(points)
-pointReader.subdivide_lines()
+pointReader.subdivide_lines(10)
 points = pointReader.getLines()
 print(points)
-exit(1)
+pointReader.translate(translate)
+points = pointReader.getLines()
+print(points)
 
 for line in points:
     first=1
     for point in line:
-        translated=(point[0] + translate[0], point[1] + translate[1])
-        move_to(translated)
+        print (point, end = ' ')
+        plotter.move_to(point)
         if first:
             first=0
-            pen_mode(1)
+            plotter.pen_mode(1)
+    print()
                 
-    if not first: pen_mode(0)
+    if not first: plotter.pen_mode(0)

@@ -3,7 +3,6 @@ import math
 class PointReader:
     def __init__(self):
         self.lines = []
-        self.max_length = 20
 
     def distiance(self, a, b):
         (xa, ya) = a
@@ -13,7 +12,18 @@ class PointReader:
     def getLines(self):
         return self.lines
 
-    def subdivide_lines(self):
+    def translate(self, translation):
+        (tx, ty) = translation
+        translated = []
+        for points in self.lines:
+            pointsNext = []
+            for point in points:
+                (x, y) = point
+                pointsNext.append((x + tx, y + ty))
+            translated.append(pointsNext)
+        self.lines = translated
+ 
+    def subdivide_lines(self, max_length):
         didSubdivide = 0
         subdivided = []
         for points in self.lines:
@@ -22,8 +32,7 @@ class PointReader:
             for point in points:
                 if (lastPoint != None):
                     d = self.distiance(lastPoint, point)
-                    if (d > self.max_length):
-                        print("subdividing", d)
+                    if (d > max_length):
                         didSubdivide = 1
                         (xlp, ylp) = lastPoint
                         (x, y) = point
@@ -33,7 +42,7 @@ class PointReader:
                 lastPoint = point
             subdivided.append(pointsNext)
         self.lines = subdivided
-        if didSubdivide: self.subdivide_lines()
+        if didSubdivide: self.subdivide_lines(max_length)
 
     def read_points(self, filename):
         f=open(filename, 'r')
