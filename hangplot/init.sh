@@ -18,11 +18,12 @@ for m in $(ls $motordir); do
 done
 
 degreesPerMilli=$(awk "BEGIN {print (1440/250)}")
+standardLength=500
 echo degreesPerMilli=$degreesPerMilli >>$output
 echo "What is the WIDTH between line anchors at top:"
 read width 
 echo width=$width  >> $output
-echo standardLength=500 >> $output
+echo standardLength=$standardLength >> $output
 cat $output
 
 source config.sh
@@ -45,3 +46,5 @@ echo "  def getLeftMotor(self): return self.left" >> $output
 echo "  def getRightMotor(self): return self.right" >> $output
 echo "  def getPenMotor(self): return self.pen" >> $output
 echo "  def getAnchorDistance(self): return self.width" >> $output
+echo "  def getDegreesPerMilli(self): return $degreesPerMilli" >> $output
+echo "  def getStandardLength(self): return $standardLength" >> $output

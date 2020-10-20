@@ -16,12 +16,12 @@ if len(sys.argv) != 4:
 
 translate=(int(sys.argv[1]), int(sys.argv[2]))
 
-left='/sys/class/tacho-motor/motor4'
-right='/sys/class/tacho-motor/motor3'
-pen='/sys/class/tacho-motor/motor2'
-degreesPerMilli=5.76
-width=430
-standardLength=500
+left=config.getLeftMotor()
+right=config.getRightMotor()
+pen=config.getPenMotor()
+degreesPerMilli=config.getDegreesPerMilli()
+width=config.getAnchorDistance()
+standardLength=config.getStandardLength()
 
 def read_file(filename):
     f=open(filename, 'r')

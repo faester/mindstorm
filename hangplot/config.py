@@ -9,3 +9,5 @@ class Config:
   def getRightMotor(self): return self.right
   def getPenMotor(self): return self.pen
   def getAnchorDistance(self): return self.width
+  def getDegreesPerMilli(self): return 5.76
+  def getStandardLength(self): return 500
