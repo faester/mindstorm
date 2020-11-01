@@ -17,7 +17,7 @@ for m in $(ls $motordir); do
 	fi
 done
 
-degreesPerMilli=$(awk "BEGIN {print (1440/250)}")
+degreesPerMilli=$(awk "BEGIN {print (3600/75)}")
 standardLength=500
 echo degreesPerMilli=$degreesPerMilli >>$output
 echo "What is the WIDTH between line anchors at top:"

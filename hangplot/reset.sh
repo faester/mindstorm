@@ -22,7 +22,7 @@ wait_for_motor() {
 leftadjust=$(awk "BEGIN {print int(($standardLength - $currentLeft)*$degreesPerMilli)}")
 rightadjust=$(awk "BEGIN {print int(($standardLength - $currentRight)*$degreesPerMilli)}")
 
-leftspeed=100
+leftspeed=1000
 rightspeed=$(awk "BEGIN {print int($leftspeed*($rightadjust/$leftadjust))}")
 
 echo $leftadjust $leftspeed
