@@ -49,6 +49,7 @@ class PointReader:
         result=[]
         lines=f.readlines()
         for line in lines:
+            if line.startswith("#"): continue
             points=[]
             for element in line.split():
                 if element != "":

@@ -27,7 +27,8 @@ print(points)
 pointReader.translate(translate)
 points = pointReader.getLines()
 print(points)
-
+print("Starting to plot!...")
+points = []
 for line in points:
     first=1
     for point in line:

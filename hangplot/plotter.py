@@ -51,7 +51,7 @@ class Plotter:
         current_wires=(self.standardLength + self.degrees(self.left)/self.degreesPerMilli,self.standardLength + self.degrees(self.right)/self.degreesPerMilli)
         target_wires=self.to_wire_length(target)
         adjust=(self.degreesPerMilli * (target_wires[0]-current_wires[0]),self.degreesPerMilli * (target_wires[1]-current_wires[1]))
-        speed=self.calculate_speed(150, adjust)
+        speed=self.calculate_speed(1000, adjust)
         self.start_move(self.left, adjust[0], speed[0])
         self.start_move(self.right, adjust[1], speed[1])
         self.wait_for(self.left)
