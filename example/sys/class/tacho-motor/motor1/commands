@@ -1,1 +1,1 @@
-/sys/class/tacho-motor/motor1/commands
+run-forever run-to-abs-pos run-to-rel-pos run-timed run-direct stop reset

@@ -1,1 +1,2 @@
-/sys/class/tacho-motor/motor1/uevent
+LEGO_DRIVER_NAME=lego-ev3-m-motor
+LEGO_ADDRESS=ev3-ports:outD

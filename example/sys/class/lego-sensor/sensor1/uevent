@@ -1,1 +1,2 @@
-/sys/class/lego-sensor/sensor1/uevent
+LEGO_DRIVER_NAME=lego-ev3-color
+LEGO_ADDRESS=ev3-ports:in4

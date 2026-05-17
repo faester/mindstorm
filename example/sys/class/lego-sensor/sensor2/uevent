@@ -1,1 +1,2 @@
-/sys/class/lego-sensor/sensor2/uevent
+LEGO_DRIVER_NAME=lego-ev3-ir
+LEGO_ADDRESS=ev3-ports:in3
