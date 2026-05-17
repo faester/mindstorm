@@ -5,6 +5,7 @@ import logging.config
 from flask import Flask, send_from_directory
 from flask import render_template
 from . import pathbuilder
+from .mindstorm import Device
 import json 
 
 def create_app(basedir = '../sys/class'): 
@@ -31,21 +32,26 @@ def create_app(basedir = '../sys/class'):
 	def mindstorm_client():
 		return send_from_directory('../static/', 'mindstorm-client.js')
 
-	@app.route('/sensor-template')
-	def motor_template():
-		return send_from_directory('../static', 'sensor-template.html')
-
-	@app.route('/motor-template')
-	def sensor_template():
-		return send_from_directory('../static', 'motor-template.html')
-
 	@app.route('/')
 	def index():
-		return render_template('main.html', title = 'main page', heading = 'We are trying to be dynamic')
-
-	@app.route('/test-template')
-	def testTemplate(): 
-		return render_template('test.html', title = "Testing templates", greeting = "Hello Bandut")
+		device_classes = Device.discover_basedir(basedir)
+		# Build summary: for each class, list devices with name/address/driver
+		summary = {}
+		for class_name, dc in device_classes.items():
+			devices = []
+			for device_name in dc.get_devices():
+				try:
+					dev = dc.get_device(device_name)
+					data = dev.get()
+					devices.append({
+						'name': device_name,
+						'address': data.get('address', ''),
+						'driver_name': data.get('driver_name', ''),
+					})
+				except Exception:
+					devices.append({'name': device_name, 'address': '?', 'driver_name': '?'})
+			summary[class_name] = devices
+		return render_template('main.html', title = 'Mindstorm', heading = 'EV3 Device Explorer', device_classes = summary)
 
 	return app
 

@@ -6,10 +6,20 @@
 {{ heading }}
 {% endblock %}
 {% block main %}
-<h4>motors</h4>
-<div class='card-deck mb-3 text-center' id='motor_row'>
+{% for class_name, devices in device_classes.items() %}
+<h4>{{ class_name }}</h4>
+<div class='card-deck mb-3 text-center'>
+{% for device in devices %}
+<div class='card mb-4 shadow-sm'>
+<div class='card-header'>
+{{ device.name }} <small class='text-muted'>({{ device.address }})</small>
 </div>
-<h4>sensors</h4>
-<div class='card-deck mb-3 text-center' id='sensor_row'>
+<div class='card-body'>
+<p class='card-text'>{{ device.driver_name }}</p>
+		<a class='btn btn-lg btn-block btn-primary' href='/{{ class_name }}/{{ device.name }}'>Open</a>
 </div>
+</div>
+{% endfor %}
+</div>
+{% endfor %}
 {% endblock %}

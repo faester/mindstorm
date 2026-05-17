@@ -1,6 +1,5 @@
 import logging
-import flaskr.mindstorm.TachoMotor as TachoMotor
-import flaskr.mindstorm.Sensor as Sensor
+import flaskr.mindstorm.Device as Device
 from flask import jsonify, request, render_template
 import json
 
@@ -56,46 +55,27 @@ class PathBuilder:
 		self.__setup_routes__()
 
 	def __setup_routes__(self): 
-		@self.app.route('/motors')
-		def motors():
-			motorList = TachoMotor.MotorList(self.basedir) 
-			return self.encoder.encode(request, 'motors.html', motorList.get_motor_list())
+		@self.app.route('/<class_name>')
+		def device_list(class_name):
+			device_class = Device.DeviceClass(self.basedir, class_name)
+			devices = device_class.get_devices()
+			data = {'class_name': class_name, 'devices': devices}
+			return self.encoder.encode(request, 'device_list.html', data)
 
-		@self.app.route('/motors/<motor_name>')
-		def get_motor(motor_name):
-			motor = TachoMotor.Motor(self.basedir, motor_name = motor_name)
-			return self.encoder.encode(request, 'motor.html', motor.get())
+		@self.app.route('/<class_name>/<device_name>')
+		def get_device(class_name, device_name):
+			device_class = Device.DeviceClass(self.basedir, class_name)
+			device = device_class.get_device(device_name)
+			data = device.get()
+			data['class_name'] = class_name
+			data['device_name'] = device_name
+			data['__attributes'] = {name: {'type': attr.attr_type, 'paired_with': attr.paired_with} for name, attr in device.attributes.items()}
+			return self.encoder.encode(request, 'device.html', data)
 
-		@self.app.route('/motors/<motor_name>', methods = ['POST'])
-		def post_motor(motor_name):
-			logger = logging.getLogger('post_motor')
-			motor = TachoMotor.Motor(self.basedir, motor_name = motor_name)
+		@self.app.route('/<class_name>/<device_name>', methods = ['POST'])
+		def post_device(class_name, device_name):
+			device_class = Device.DeviceClass(self.basedir, class_name)
+			device = device_class.get_device(device_name)
 			body = self.decoder.decode(request)
-			speed_sp = body['speed_sp']
-			command = body['command']
-			motor.post(**body)
-			refreshed = motor.get()
-			if not speed_sp is None:
-				refreshed['speed'] = speed_sp
-			if not command is None: 
-				refreshed['command'] = command
-			return self.encoder.encode(request, 'motor.html', refreshed)
-
-		@self.app.route('/sensors')
-		def sensors():
-			sensorList = Sensor.SensorList(self.basedir)
-			return self.encoder.encode(request, 'sensors.html', sensorList.get_sensor_list())
-
-
-		@self.app.route('/sensors/<sensor_name>')
-		def get_sensors(sensor_name):
-			sensor = Sensor.Sensor(self.basedir, sensor_name = sensor_name)
-			d = sensor.get()
-			return self.encoder.encode(request, 'sensor.html', d)
-
-		@self.app.route('/sensors/<sensor_name>', methods = ['POST'])
-		def post_sensors(sensor_name):
-			sensor = Sensor.Sensor(self.basedir, sensor_name = sensor_name)
-			body = self.decoder.decode(request)
-			sensor.post(**body)
-			return get_sensors(sensor_name)
+			device.post(**body)
+			return get_device(class_name, device_name)

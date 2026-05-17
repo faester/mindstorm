@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 {% block page_title %}
-Motors
+{{ class_name }}
 {% endblock %}
 {% block heading %}
-{{ address  }}
+{{ class_name }}
 {% endblock %}
 {% block main %}
-<h1>Link to motors below</h1>	
 <div class='card-deck mb-3 text-center'>
-{% for motor in motors %}
+{% for device in devices %}
 <div class='card mb-4 shadow-sm'>
 <div class='card-header'>
-{{ motor }}
+{{ device }}
 </div>
 <div class='card-body'>
-		<a class='btn btn-lg btn-block btn-primary' href='motors/{{ motor }}'>Control motor</a>
+		<a class='btn btn-lg btn-block btn-primary' href='/{{ class_name }}/{{ device }}'>Open</a>
 </div>
 </div>
 {% endfor %}
 </div>
+<a href="/">back</a>
 {% endblock %}
