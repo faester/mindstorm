@@ -38,3 +38,6 @@ for tests and development, where the brick is not actually running.
 1. install flask `pip install flask --user`
 2. install waitress `pip install waitress --user`
 3. Run flask app in waitress `python3 startup.py`
+
+# Connecting to the brick
+Using standard ev3dev user. (robot:maker)
