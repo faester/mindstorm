@@ -8,7 +8,7 @@ from . import pathbuilder
 from .mindstorm import Device
 import json 
 
-def create_app(basedir = '../sys/class'): 
+def create_app(basedir = '/sys/class'): 
 	# Create and configure the app
 	app = Flask(__name__, instance_relative_config = True)
 	app.config.from_mapping(FOO = 'bar', GRINGOS = 'Loco')

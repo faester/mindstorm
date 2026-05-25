@@ -1,2 +1,1 @@
-LEGO_DRIVER_NAME=lego-ev3-ir
-LEGO_ADDRESS=ev3-ports:in1
+['[\'["{\\\'LEGO_DRIVER_NAME\\\':",\',', '\'"\\\'lego-ev3-ir\\\',",\',', '\'"\\\'LEGO_ADDRESS\\\':",\',', '\'"\\\'ev3-ports:in1\\\'}"]\']']
