@@ -16,12 +16,14 @@ def discover_basedir(basedir):
     result = {}
     if not os.path.isdir(basedir):
         return result
-    for devicename in (name for name in os.listdir(basedir) if name.startswith("lego") or name.startswith("tachomotor")):
-        log.info("Adding path " + devicename)
-        path = os.path.join(basedir, devicename)
-        if os.path.isdir(path):
-            result[devicename] = DeviceClass(basedir, devicename)
-    return sorted(result)
+    for name in sorted(os.listdir(basedir)):
+        log.info("Appending " + name)
+        path = os.path.join(basedir, name)
+        if os.path.isdir(path) and (name.startswith("lego-") or name.startswith("tacho")):
+            result[name] = DeviceClass(basedir, name)
+        else:
+            log.warn("Omitting: " + name)
+    return result
 
 
 class DeviceClass:
